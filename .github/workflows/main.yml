@@ -2,13 +2,18 @@ name: main
 on: [push, workflow_dispatch]
 jobs:
   tests:
-    name: mocha tests
+    name: foundry tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: "19.0"
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
 
       - uses: pnpm/action-setup@v2.2.2
         name: Install pnpm
