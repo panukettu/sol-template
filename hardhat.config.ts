@@ -3,7 +3,7 @@ import '@nomicfoundation/hardhat-foundry';
 import '@nomicfoundation/hardhat-toolbox';
 import '@nomiclabs/hardhat-solhint';
 import type { HardhatUserConfig, SolcUserConfig } from 'hardhat/types';
-import { infura } from './shared.config.ts';
+import { infura, rpc } from './shared.config.ts';
 export const compilers: SolcUserConfig[] = [
   {
     version: '0.8.19',
@@ -29,7 +29,7 @@ const config: HardhatUserConfig = {
       saveDeployments: false,
       forking: {
         // url: "https://divine-powerful-putty.matic.discover.quiknode.pro/${process.env.QUICKNODE_API_KEY}/",
-        url: process.env.RPC_MAINNET,
+        url: rpc('mainnet'),
       },
     },
   },
