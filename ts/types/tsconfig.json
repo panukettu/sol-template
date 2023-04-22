@@ -3,6 +3,6 @@
     "moduleResolution": "node",
     "composite": true
   },
-  "include": ["**/*.ts"],
+  "include": ["./typechain/**/*.ts"],
   "exclude": ["node_modules", "dist", "build", "bin", "lib"]
 }

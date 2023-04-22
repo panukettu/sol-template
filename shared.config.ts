@@ -1,48 +1,103 @@
 import { config } from 'dotenv';
+
 config();
-
-export const infura = (network: string) => {
-  if (network === 'mainnet') network = 'mainnet';
-  if (network === 'goerli') network = 'goerli';
-  if (network === 'sepolia') network = 'sepolia';
-  if (network === 'optimism') network = 'optimism-mainnet';
-  if (network === 'optimismGoerli') network = 'optimism-goerli';
-  if (network === 'arbitrum') network = 'arbitrum-mainnet';
-  if (network === 'arbitrumGoerli') network = 'arbitrum-goerli';
-  if (network === 'polygon') network = 'polygon-mainnet';
-  if (network === 'polygonMumbai') network = 'polygon-mumbai';
-  if (network === 'polygonZkEvm') network = 'polygonzkevm-mainnet';
-  if (network === 'polygonZkEvmTestnet') network = 'polygonzkevm-testnet';
-  return `https://${network}.infura.io/v3/${process.env.INFURA_API_KEY}`;
+export const rpc = (network: Networks) => {
+  try {
+    return omnia(network);
+  } catch {
+    return publicRPC(network);
+  }
 };
 
-export const alchemy = (network: string) => {
-  if (network === 'mainnet') network = 'eth-mainnet';
-  if (network === 'goerli') network = 'eth-goerli';
-  if (network === 'sepolia') network = 'eth-sepolia';
-  if (network === 'optimism') network = 'opt-mainnet';
-  if (network === 'optimismGoerli') network = 'opt-goerli';
-  if (network === 'arbitrum') network = 'arb-mainnet';
-  if (network === 'arbitrumGoerli') network = 'arb-goerli';
-  if (network === 'polygon') network = 'polygon-mainnet';
-  if (network === 'polygonMumbai') network = 'polygon-mumbai';
-  if (network === 'polygonZkEvm') network = 'polygonzkevm-mainnet';
-  if (network === 'polygonZkEvmTestnet') network = 'polygonzkevm-testnet';
-  return `https://${network}.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`;
+export const etherscan = (network: Networks) => {
+  return {
+    mainnet: 'https://etherscan.io',
+    goerli: 'https://goerli.etherscan.io',
+    sepolia: 'https://sepolia.etherscan.io',
+    optimism: 'https://optimistic.etherscan.io',
+    optimismGoerli: 'https://optimistic-goerli.etherscan.io',
+    arbitrum: 'https://arbiscan.io',
+    arbitrumGoerli: 'https://goerli-explorer.arbitrum.io',
+    polygon: 'https://polygonscan.com',
+    polygonMumbai: 'https://mumbai.polygonscan.com',
+    polygonZkEvm: 'https://explorer.zkevm.polygonscan.com',
+    polygonZkEvmTestnet: 'https://explorer.testnet.zkevm.polygonscan.com',
+  }[network];
 };
 
-export const omnia = (network: string) => {
-  if (network === 'mainnet') network = 'eth/mainnet';
-  if (network === 'goerli') network = 'eth/goerli';
-  if (network === 'sepolia') network = 'eth/sepolia';
-  if (network === 'optimism') network = 'optimism/mainnet';
-  if (network === 'optimismGoerli') network = 'optimism/goerli';
-  if (network === 'arbitrum') network = 'arbitrum/mainnet';
-  if (network === 'arbitrumGoerli') network = 'arbitrum/goerli';
-  if (network === 'polygon') network = 'polygon/mainnet';
-  if (network === 'polygonMumbai') network = 'polygon/mumbai';
+export const publicRPC = (network: Networks) => {
+  return {
+    mainnet: process.env.RPC_MAINNET,
+    goerli: process.env.RPC_GOERLI,
+    sepolia: process.env.RPC_SEPOLIA,
+    optimism: process.env.RPC_OPTIMISM,
+    optimismGoerli: process.env.RPC_OPTIMISM_GOERLI,
+    arbitrum: process.env.RPC_ARBITRUM,
+    arbitrumGoerli: process.env.RPC_ARBITRUM_GOERLI,
+    polygon: process.env.RPC_POLYGON,
+    polygonMumbai: process.env.RPC_POLYGON_MUMBAI,
+    polygonZkEvm: process.env.RPC_POLYGON_ZKEVM,
+    polygonZkEvmTestnet: process.env.RPC_POLYGON_ZKEVM_TESTNET,
+  }[network];
+};
+export const infura = (network: Networks) => {
+  const infuraKey = process.env.INFURA_API_KEY;
+  if (!infuraKey) {
+    throw new Error('No INFURA_API_KEY found in .env file');
+  }
+  let infuraId = '';
+  if (network === 'mainnet') infuraId = 'mainnet';
+  if (network === 'goerli') infuraId = 'goerli';
+  if (network === 'sepolia') infuraId = 'sepolia';
+  if (network === 'optimism') infuraId = 'optimism-mainnet';
+  if (network === 'optimismGoerli') infuraId = 'optimism-goerli';
+  if (network === 'arbitrum') infuraId = 'arbitrum-mainnet';
+  if (network === 'arbitrumGoerli') infuraId = 'arbitrum-goerli';
+  if (network === 'polygon') infuraId = 'polygon-mainnet';
+  if (network === 'polygonMumbai') infuraId = 'polygon-mumbai';
+  if (network === 'polygonZkEvm') infuraId = 'polygonzkevm-mainnet';
+  if (network === 'polygonZkEvmTestnet') infuraId = 'polygonzkevm-testnet';
+  return `https://${infuraId}.infura.io/v3/${infuraKey}`;
+};
 
-  return `https://endpoints.omniatech.io/v1/${network}/${process.env.OMNIA_API_KEY}`;
+export const alchemy = (network: Networks) => {
+  const alchemyKey = process.env.ALCHEMY_API_KEY;
+  if (!alchemyKey) {
+    throw new Error('No ALCHEMY_API_KEY found in .env file');
+  }
+  let alchemyId = '';
+
+  if (network === 'mainnet') alchemyId = 'eth-mainnet';
+  if (network === 'goerli') alchemyId = 'eth-goerli';
+  if (network === 'sepolia') alchemyId = 'eth-sepolia';
+  if (network === 'optimism') alchemyId = 'opt-mainnet';
+  if (network === 'optimismGoerli') alchemyId = 'opt-goerli';
+  if (network === 'arbitrum') alchemyId = 'arb-mainnet';
+  if (network === 'arbitrumGoerli') alchemyId = 'arb-goerli';
+  if (network === 'polygon') alchemyId = 'polygon-mainnet';
+  if (network === 'polygonMumbai') alchemyId = 'polygon-mumbai';
+  if (network === 'polygonZkEvm') alchemyId = 'polygonzkevm-mainnet';
+  if (network === 'polygonZkEvmTestnet') alchemyId = 'polygonzkevm-testnet';
+  return `https://${alchemyId}.g.alchemy.com/v2/${alchemyKey}`;
+};
+
+export const omnia = (network: Networks) => {
+  const omniaKey = process.env.OMNIA_API_KEY;
+  if (!omniaKey) {
+    throw new Error('No OMNIA_API_KEY found in .env file');
+  }
+  let omniaId = '';
+  if (network === 'mainnet') omniaId = 'eth/mainnet';
+  if (network === 'goerli') omniaId = 'eth/goerli';
+  if (network === 'sepolia') omniaId = 'eth/sepolia';
+  if (network === 'optimism') omniaId = 'optimism/mainnet';
+  if (network === 'optimismGoerli') omniaId = 'optimism/goerli';
+  if (network === 'arbitrum') omniaId = 'arbitrum/mainnet';
+  if (network === 'arbitrumGoerli') omniaId = 'arbitrum/goerli';
+  if (network === 'polygon') omniaId = 'polygon/mainnet';
+  if (network === 'polygonMumbai') omniaId = 'polygon/mumbai';
+
+  return `https://endpoints.omniatech.io/v1/${omniaId}/${omniaKey}`;
 };
 export const layerZero = {
   mainnet: {

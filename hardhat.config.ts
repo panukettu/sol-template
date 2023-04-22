@@ -29,7 +29,7 @@ const config: HardhatUserConfig = {
       saveDeployments: false,
       forking: {
         // url: "https://divine-powerful-putty.matic.discover.quiknode.pro/${process.env.QUICKNODE_API_KEY}/",
-        url: infura('mainnet'),
+        url: process.env.RPC_MAINNET,
       },
     },
   },
