@@ -1,3 +1,6 @@
-lib
-build
-node_modules
+lib/
+build/
+node_modules/
+deployments/
+pnpm-lock.yaml
+ts/types/typechain

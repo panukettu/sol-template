@@ -4,21 +4,22 @@ pragma solidity ^0.8.0;
 import { Test } from 'forge-std/Test.sol';
 import { Ghost } from '../contracts/Ghost.sol';
 
-contract GhostTest is Test {
-  Ghost public main;
-  Ghost public test;
+contract Base is Test {
+  Ghost public deployMain;
+  Ghost public deployTest;
 
   // the identifiers of the forks
-  uint256 mainnet;
-  uint256 testnet;
+  uint256 internal mainnet;
+  uint256 internal testnet;
 
   function setUp() public {
     mainnet = vm.createSelectFork(vm.rpcUrl('mainnet'));
     testnet = vm.createSelectFork(vm.rpcUrl('goerli'));
+
     vm.selectFork(mainnet);
-    main = new Ghost();
+    deployMain = new Ghost();
     vm.selectFork(testnet);
-    test = new Ghost();
+    deployTest = new Ghost();
   }
 
   /**
@@ -26,8 +27,9 @@ contract GhostTest is Test {
    */
   function testBoo() public {
     vm.selectFork(mainnet);
-    assertEq(main.boo(), 'Boo!');
+    assertEq(deployMain.boo(), 'Boo!');
+    
     vm.selectFork(testnet);
-    assertEq(test.boo(), 'Boo!');
+    assertEq(deployTest.boo(), 'Boo!');
   }
 }

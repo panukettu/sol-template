@@ -24,6 +24,7 @@ specifiers:
   hardhat-gas-reporter: ^1.0.9
   prettier: 2.8.7
   prettier-plugin-solidity: 1.1.3
+  solhint: ^3.4.1
   solidity-coverage: ^0.8.2
   ts-node: ^10.9.1
   tsconfig-paths: ^4.2.0
@@ -54,6 +55,7 @@ devDependencies:
   hardhat-gas-reporter: 1.0.9_hardhat@2.14.0
   prettier: 2.8.7
   prettier-plugin-solidity: 1.1.3_prettier@2.8.7
+  solhint: 3.4.1
   solidity-coverage: 0.8.2_hardhat@2.14.0
   ts-node: 10.9.1_hqa7phrwrwdy7qif23jie3n27e
   tsconfig-paths: 4.2.0

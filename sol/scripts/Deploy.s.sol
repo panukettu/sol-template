@@ -4,7 +4,7 @@ pragma solidity >=0.8.18;
 import {Script} from 'forge-std/Script.sol';
 import {Ghost} from '../contracts/Ghost.sol';
 
-contract Test is Script {
+contract Example is Script {
   function run() external {
     vm.startBroadcast();
     new Ghost();
