@@ -5,7 +5,9 @@
   "scripts": {
     "lint": "prettier --check . && hardhat check",
     "lint:fix": "prettier --write . && solhint sol/**/*.sol --fix",
-    "test": "hardhat test",
+    "f:test": "forge test",
+    "hh:test": "hardhat test",
+    "test": "forge test && hardhat test",
     "postinstall": "forge install"
   },
   "repository": {
