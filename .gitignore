@@ -2,7 +2,7 @@
 cache/
 cache_hardhat/
 out/
-
+artifacts/
 # general
 .env
 
