@@ -5,6 +5,7 @@
   "scripts": {
     "lint": "prettier --check . && hardhat check",
     "lint:fix": "prettier --write . && solhint sol/**/*.sol --fix",
+    "test": "hardhat test",
     "postinstall": "forge install"
   },
   "repository": {
@@ -15,9 +16,9 @@
   "author": "panukettu",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bgd-labs/bgd-forge-template/issues"
+    "url": "https://github.com/panukettu/sol-template/issues"
   },
-  "homepage": "https://github.com/bgd-labs/bgd-forge-template#readme",
+  "homepage": "https://github.com/panukettu/sol-template",
   "devDependencies": {
     "@layerzerolabs/lz-sdk": "^0.0.12",
     "@nomicfoundation/hardhat-chai-matchers": "^1.0.6",
