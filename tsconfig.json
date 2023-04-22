@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "module": "esnext",
+    "moduleResolution": "nodenext",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "paths": {
+      "./*": ["./*.js"]
+    }
+  },
+  "ts-node": {
+    "experimentalSpecifierResolution": "node",
+    "moduleTypes": {
+      "hardhat.config.ts": "cjs",
+      "shared.config.ts": "cjs"
+    },
+    "esm": true,
+    "require": ["tsconfig-paths/register"]
+  }
+}

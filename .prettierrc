@@ -7,17 +7,27 @@
         "tabWidth": 2,
         "useTabs": false,
         "singleQuote": true,
-        "bracketSpacing": false
+        "bracketSpacing": true
       }
     },
     {
       "files": "*.ts",
       "options": {
-        "printWidth": 100,
+        "printWidth": 80,
         "tabWidth": 2,
         "useTabs": false,
         "singleQuote": true,
-        "bracketSpacing": false
+        "bracketSpacing": true
+      }
+    },
+    {
+      "files": "*.js",
+      "options": {
+        "printWidth": 80,
+        "tabWidth": 2,
+        "useTabs": false,
+        "singleQuote": true,
+        "bracketSpacing": true
       }
     }
   ]

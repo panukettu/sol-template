@@ -1,5 +1,6 @@
 # build and cache
 cache/
+cache_hardhat/
 out/
 
 # general

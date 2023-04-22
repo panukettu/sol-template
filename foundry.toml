@@ -1,19 +1,26 @@
 [profile.default]
-src = 'src'
-test = 'tests'
-script = 'scripts'
+src = 'sol/contracts'
+test = 'sol/tests'
+script = 'sol/scripts'
 out = 'out'
 libs = ['lib']
+
 remappings = [
 ]
+
 fs_permissions = [{ access = "write", path = "./reports" }]
 
 [rpc_endpoints]
 mainnet = "${RPC_MAINNET}"
+goerli = "${RPC_GOERLI}"
+sepolia = "${RPC_SEPOLIA}"
 optimism = "${RPC_OPTIMISM}"
+optimismGoerli = "${RPC_OPTIMISM_GOERLI}"
 avalanche = "${RPC_AVALANCHE}"
 polygon = "${RPC_POLYGON}"
+polygonMumbai = "${RPC_POLYGON_MUMBAI}"
 arbitrum = "${RPC_ARBITRUM}"
+arbitrumGoerli = "${RPC_ARBITRUM_GOERLI}"
 fantom = "${RPC_FANTOM}"
 harmony = "${RPC_HARMONY}"
 metis = "${RPC_METIS}"
