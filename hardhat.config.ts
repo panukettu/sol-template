@@ -25,8 +25,8 @@ export default {
     },
   },
   paths: {
-    artifacts: 'artifacts',
-    cache: 'cache',
+    artifacts: 'build/hardhat-artifacts',
+    cache: 'build/hardhat-cache',
     sources: 'sol/contracts',
     tests: 'ts/test',
   },

@@ -2,7 +2,8 @@
 src = 'sol/contracts'
 test = 'sol/tests'
 script = 'sol/scripts'
-out = 'out'
+out = 'build/foundry-artifacts'
+cache_path = 'build/foundry-cache'
 libs = ['lib']
 
 remappings = [

@@ -1,18 +1,17 @@
-# build and cache
-cache/
-cache_hardhat/
-out/
-artifacts/
+# artifacts+caches
+build/
+
 # general
 .env
 
 # editors
 .idea
-.vscode
 
 # well, looks strange to ignore package-lock, but we have only pretter and it's temproray
-package-lock.json
 node_modules
 
 # ignore foundry deploy artifacts
 broadcast/
+
+# temporary files
+temp/
