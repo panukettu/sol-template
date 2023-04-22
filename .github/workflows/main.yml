@@ -5,10 +5,11 @@ jobs:
     name: foundry tests
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+
       - name: copy env
         run: cp .env.example .env
 
-      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: "19.0"
