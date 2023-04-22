@@ -11,15 +11,23 @@
     "skipLibCheck": true
   },
   "ts-node": {
+    "swc": true,
+    "include": ["./ts"],
     "experimentalSpecifierResolution": "node",
     "moduleTypes": {
+      "ts/**/*.ts": "cjs",
       "hardhat.config.ts": "cjs",
       "shared.config.ts": "cjs"
     },
     "esm": true,
     "require": ["tsconfig-paths/register"]
   },
-  "include": ["./ts"],
   "files": ["hardhat.config.ts", "shared.config.ts"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["./ts/**/*.ts"],
+  "exclude": ["node_modules", "dist", "build", "bin", "lib"],
+  "references": [
+    {
+      "path": "./ts/types/tsconfig.json"
+    }
+  ]
 }

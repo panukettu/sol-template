@@ -1,6 +1,9 @@
+import 'hardhat-deploy';
 import '@nomicfoundation/hardhat-foundry';
-import type { SolcUserConfig } from 'hardhat/types';
-
+import '@nomicfoundation/hardhat-toolbox';
+import '@nomiclabs/hardhat-solhint';
+import type { HardhatUserConfig, SolcUserConfig } from 'hardhat/types';
+import { infura } from './shared.config.ts';
 export const compilers: SolcUserConfig[] = [
   {
     version: '0.8.19',
@@ -13,21 +16,32 @@ export const compilers: SolcUserConfig[] = [
   },
 ];
 
-export default {
+const config: HardhatUserConfig = {
   solidity: { compilers },
+  namedAccounts: {
+    deployer: {
+      default: 0,
+    },
+  },
   networks: {
     hardhat: {
       autoImpersonate: true,
+      saveDeployments: false,
       forking: {
         // url: "https://divine-powerful-putty.matic.discover.quiknode.pro/${process.env.QUICKNODE_API_KEY}/",
-        url: `https://sepolia.infura.io/v3/${process.env.INFURA_API_KEY}`,
+        url: infura('mainnet'),
       },
     },
+  },
+  typechain: {
+    outDir: 'ts/types/typechain',
   },
   paths: {
     artifacts: 'build/hardhat-artifacts',
     cache: 'build/hardhat-cache',
     sources: 'sol/contracts',
-    tests: 'ts/test',
+    tests: 'ts/tests',
   },
 };
+
+export default config;

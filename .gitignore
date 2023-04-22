@@ -1,6 +1,7 @@
 # forge/hardhat artifact, cache
 build
-
+ts/types/typechain
+deployments/hardhat
 # juanblanco.solidity compilation outputs
 bin
 

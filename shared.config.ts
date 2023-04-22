@@ -1,6 +1,49 @@
 import { config } from 'dotenv';
 config();
 
+export const infura = (network: string) => {
+  if (network === 'mainnet') network = 'mainnet';
+  if (network === 'goerli') network = 'goerli';
+  if (network === 'sepolia') network = 'sepolia';
+  if (network === 'optimism') network = 'optimism-mainnet';
+  if (network === 'optimismGoerli') network = 'optimism-goerli';
+  if (network === 'arbitrum') network = 'arbitrum-mainnet';
+  if (network === 'arbitrumGoerli') network = 'arbitrum-goerli';
+  if (network === 'polygon') network = 'polygon-mainnet';
+  if (network === 'polygonMumbai') network = 'polygon-mumbai';
+  if (network === 'polygonZkEvm') network = 'polygonzkevm-mainnet';
+  if (network === 'polygonZkEvmTestnet') network = 'polygonzkevm-testnet';
+  return `https://${network}.infura.io/v3/${process.env.INFURA_API_KEY}`;
+};
+
+export const alchemy = (network: string) => {
+  if (network === 'mainnet') network = 'eth-mainnet';
+  if (network === 'goerli') network = 'eth-goerli';
+  if (network === 'sepolia') network = 'eth-sepolia';
+  if (network === 'optimism') network = 'opt-mainnet';
+  if (network === 'optimismGoerli') network = 'opt-goerli';
+  if (network === 'arbitrum') network = 'arb-mainnet';
+  if (network === 'arbitrumGoerli') network = 'arb-goerli';
+  if (network === 'polygon') network = 'polygon-mainnet';
+  if (network === 'polygonMumbai') network = 'polygon-mumbai';
+  if (network === 'polygonZkEvm') network = 'polygonzkevm-mainnet';
+  if (network === 'polygonZkEvmTestnet') network = 'polygonzkevm-testnet';
+  return `https://${network}.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`;
+};
+
+export const omnia = (network: string) => {
+  if (network === 'mainnet') network = 'eth/mainnet';
+  if (network === 'goerli') network = 'eth/goerli';
+  if (network === 'sepolia') network = 'eth/sepolia';
+  if (network === 'optimism') network = 'optimism/mainnet';
+  if (network === 'optimismGoerli') network = 'optimism/goerli';
+  if (network === 'arbitrum') network = 'arbitrum/mainnet';
+  if (network === 'arbitrumGoerli') network = 'arbitrum/goerli';
+  if (network === 'polygon') network = 'polygon/mainnet';
+  if (network === 'polygonMumbai') network = 'polygon/mumbai';
+
+  return `https://endpoints.omniatech.io/v1/${network}/${process.env.OMNIA_API_KEY}`;
+};
 export const layerZero = {
   mainnet: {
     lzChainId: 101,
