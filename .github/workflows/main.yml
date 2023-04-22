@@ -1,8 +1,28 @@
 name: main
 on: [push, workflow_dispatch]
 jobs:
-  tests:
+  foundry:
     name: foundry tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: copy env
+        run: cp .env.example .env
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "19.0"
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      - run: forge test
+  hardhat:
+    if: github.event_name == 'workflow_dispatch'
+    name: hardhat tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -41,7 +61,5 @@ jobs:
 
       - name: Install packages
         run: pnpm i
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - run: pnpm f:test
+      - run: pnpm hh:test
