@@ -9,7 +9,7 @@ libs = ['lib']
 remappings = [
 ]
 
-fs_permissions = [{ access = "write", path = "./reports" }]
+fs_permissions = [{ access = "write", path = "./exports" }]
 
 [rpc_endpoints]
 mainnet = "${RPC_MAINNET}"

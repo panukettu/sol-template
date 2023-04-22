@@ -1,5 +1,8 @@
-# artifacts+caches
+# forge/hardhat artifact, cache
 build
+
+# juanblanco.solidity compilation outputs
+bin
 
 # general
 .env
