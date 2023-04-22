@@ -1,5 +1,5 @@
 # artifacts+caches
-build/
+build
 
 # general
 .env
@@ -7,11 +7,11 @@ build/
 # editors
 .idea
 
-# well, looks strange to ignore package-lock, but we have only pretter and it's temproray
+# libs
 node_modules
 
 # ignore foundry deploy artifacts
-broadcast/
+broadcast
 
 # temporary files
-temp/
+temp

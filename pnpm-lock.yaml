@@ -3,7 +3,6 @@ lockfileVersion: 5.4
 specifiers:
   '@layerzerolabs/lz-sdk': ^0.0.12
   '@nomicfoundation/hardhat-foundry': ^1.0.1
-  '@openzeppelin/contracts-upgradeable': ^4.8.3
   '@tsconfig/esm': ^1.0.3
   '@tsconfig/node16': ^1.0.3
   '@types/node': ^18.15.13
@@ -19,7 +18,6 @@ specifiers:
 devDependencies:
   '@layerzerolabs/lz-sdk': 0.0.12
   '@nomicfoundation/hardhat-foundry': 1.0.1_hardhat@2.14.0
-  '@openzeppelin/contracts-upgradeable': 4.8.3
   '@tsconfig/esm': 1.0.3
   '@tsconfig/node16': 1.0.3
   '@types/node': 18.15.13
@@ -698,10 +696,6 @@ packages:
       '@nomicfoundation/solidity-analyzer-win32-arm64-msvc': 0.1.1
       '@nomicfoundation/solidity-analyzer-win32-ia32-msvc': 0.1.1
       '@nomicfoundation/solidity-analyzer-win32-x64-msvc': 0.1.1
-    dev: true
-
-  /@openzeppelin/contracts-upgradeable/4.8.3:
-    resolution: {integrity: sha512-SXDRl7HKpl2WDoJpn7CK/M9U4Z8gNXDHHChAKh0Iz+Wew3wu6CmFYBeie3je8V0GSXZAIYYwUktSrnW/kwVPtg==}
     dev: true
 
   /@scure/base/1.1.1:

@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "lint": "prettier ./",
-    "lint:fix": "npm run lint -- --write"
+    "lint:fix": "npm run lint -- --write",
+    "postinstall": "forge install"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,6 @@
   "devDependencies": {
     "@layerzerolabs/lz-sdk": "^0.0.12",
     "@nomicfoundation/hardhat-foundry": "^1.0.1",
-    "@openzeppelin/contracts-upgradeable": "^4.8.3",
     "@tsconfig/esm": "^1.0.3",
     "@tsconfig/node16": "^1.0.3",
     "@types/node": "^18.15.13",

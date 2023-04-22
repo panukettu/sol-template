@@ -8,9 +8,7 @@
     "moduleResolution": "nodenext",
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "paths": {
-      "./*": ["./*.js"]
-    }
+    "skipLibCheck": true
   },
   "ts-node": {
     "experimentalSpecifierResolution": "node",
@@ -20,5 +18,8 @@
     },
     "esm": true,
     "require": ["tsconfig-paths/register"]
-  }
+  },
+  "include": ["./ts"],
+  "files": ["hardhat.config.ts", "shared.config.ts"],
+  "exclude": ["node_modules", "dist"]
 }
