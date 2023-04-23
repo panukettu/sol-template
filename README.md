@@ -1,38 +1,96 @@
 # foundry+hardhat template
 
-use this template from github / create a new project with forge:
+Uses [Foundry](https://getfoundry.sh). See the [docs](https://book.getfoundry.sh).
+
+Uses [Hardhat](https://hardhat.org/). See the [docs](https://hardhat.org/hardhat-runner/docs/advanced/hardhat-and-foundry).
+
+Use [blackbox](https://github.com/StackExchange/blackbox#installation-instructions) to commit encrypted secrets (optional)
+
+Lots of boilerplate for RPC, Etherscan and LayerZero configuration.
+
+templates (forking not reliable with public RPCs):
+
+- forge test on multiple forks: `forge test` or `pnpm f:test` or `./test.sh`
+- hh test on single fork: `npx hardhat test` or `pnpm hh:test`
+- hh deploy to multiple chains concurrent : `npx hardhat deploy` or `pnpm hh:deploy`
+- two gh workflow jobs: hardhat (dispatch) and forge (push, dispatch)
+
+## setup
+
+1. (init) use this template from github
+
+- (init) or with forge init
 
 ```shell
 $ forge init --template panukettu/sol-template my_new_project
 ```
 
-setup [blackbox](https://github.com/StackExchange/blackbox#installation-instructions)
-
-```shell
-$ make init-blackbox email=NEW@GPG.EMAIL
-```
-
-or without blackbox
+2. (env) without blackbox
 
 ```sh
 cp .env.example .env
 ```
 
-postinstall will forge install
+- (env) with [blackbox](https://github.com/StackExchange/blackbox#installation-instructions) (requires homebrew and gpg)
+
+```shell
+$ make init-blackbox email=NEW@GPG.EMAIL
+```
+
+3. (optional) for hardhat:
 
 ```sh
 pnpm i
 ```
 
-this repo is derived from [bgd-forge-template](https://github.com/bgd-labs/bgd-forge-template)
+## locations
 
-## Included modules
+```sh
+-- foundry
+src = 'sol/contracts'
+test = 'sol/tests'
+script = 'sol/scripts'
+out = 'build/foundry-artifacts'
+cache_path = 'build/foundry-cache'
+libs = ['lib']
+-- hardhat
+deploy: 'ts/deploy',
+deployments: 'exports/deployments',
+artifacts: 'build/hardhat-artifacts',
+cache: 'build/hardhat-cache',
+sources: 'sol/contracts',
+tests: 'ts/tests',
+```
 
-[Rari-Capital/solmate](https://github.com/Rari-Capital/solmate) - simple sources for base contracts
+## foundry packages
 
-[OpenZeppelin/openzeppelin-contracts](https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable) - for not so simple base contracts
+[Rari-Capital/solmate](https://github.com/Rari-Capital/solmate) - simple base contracts
 
-## Module recommendations
+[OpenZeppelin/openzeppelin-contracts](https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable) - not so simple base contracts
+
+## hardhat packages
+
+```sh
+"@layerzerolabs/lz-sdk": "^0.0.12",
+"@nomicfoundation/hardhat-chai-matchers": "^1.0.6",
+"@nomicfoundation/hardhat-foundry": "^1.0.1",
+"@nomicfoundation/hardhat-network-helpers": "^1.0.8",
+"@nomicfoundation/hardhat-toolbox": "^2.0.2",
+"@nomiclabs/hardhat-ethers": "^2.2.3",
+"@nomiclabs/hardhat-etherscan": "^3.1.7",
+"@nomiclabs/hardhat-solhint": "^3.0.1",
+"@typechain/ethers-v5": "^10.2.0",
+"@typechain/hardhat": "^6.1.5",
+"@wagmi/chains": "^0.2.20",
+"ethers": "^5.7.2",
+"hardhat": "^2.14.0",
+"hardhat-deploy": "^0.11.26",
+"hardhat-gas-reporter": "^1.0.9",
+"solhint": "^3.4.1",
+"solidity-coverage": "^0.8.2",
+```
+
+## forge recommendations
 
 [bgd-labs/solidity-utils](https://github.com/bgd-labs/solidity-utils) - common contracts we use everywhere, ie transparent proxy and around
 
@@ -40,19 +98,7 @@ this repo is derived from [bgd-forge-template](https://github.com/bgd-labs/bgd-f
 
 [bgd-labs/aave-helpers](https://github.com/bgd-labs/aave-helpers) - useful utils for integration, and not only testing related to Aave ecosystem contracts
 
-## Development
-
-This project uses [Foundry](https://getfoundry.sh). See the [book](https://book.getfoundry.sh) for usage.
-
-This project also uses [Hardhat](https://hardhat.org/). See the [docs](https://hardhat.org/hardhat-runner/docs/advanced/hardhat-and-foundry) for more info on hardhat + foundry projects.
-
-### Test
-
-```sh
-forge test
-```
-
-## Advanced features
+## advanced features ([bgd-forge-template](https://github.com/bgd-labs/bgd-forge-template))
 
 ### Diffing
 
