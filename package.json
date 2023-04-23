@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "hh:deploy": "hardhat deploy",
     "lint": "prettier --check . && hardhat check",
     "lint:fix": "prettier --write . && solhint sol/**/*.sol --fix",
-    "f:test": "forge test",
+    "f:test": "dotenv forge test",
     "hh:test": "hardhat test",
-    "test": "forge test && hardhat test",
+    "test": "dotenv forge test && hardhat test",
     "postinstall": "forge install"
   },
   "repository": {
