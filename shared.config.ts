@@ -311,7 +311,11 @@ export const etherscan = (network: Networks) => {
 
 export const pokt = (network: Networks) => {
   const POKT_API_KEY = process.env.POKT_API_KEY;
+
+  if (!POKT_API_KEY) throw new Error('POKT_API_KEY is not defined in .env');
+
   let poktId = '';
+
   if (network === 'mainnet') poktId = 'eth-trace';
   if (network === 'goerli') poktId = 'goerli-archival';
   if (network === 'optimism') poktId = 'optimism-mainnet';
