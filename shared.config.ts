@@ -1,6 +1,191 @@
 import { config } from 'dotenv';
-
+import type {
+  HttpNetworkAccountsUserConfig,
+  NetworksUserConfig,
+} from 'hardhat/types/config.ts';
+import * as chains from '@wagmi/chains';
 config();
+
+export const mainnets = (
+  accounts: HttpNetworkAccountsUserConfig
+): NetworksUserConfig => ({
+  mainnet: {
+    accounts,
+    url: rpc('mainnet'),
+    chainId: chains.mainnet.id,
+    verify: {
+      etherscan: etherscan('mainnet'),
+    },
+    companionNetworks: {
+      arbitrum: 'arbitrum',
+      polygon: 'polygon',
+      optimism: 'optimism',
+      polygonZkEvm: 'polygonZkEvm',
+    },
+  },
+  arbitrum: {
+    accounts,
+    url: rpc('arbitrum'),
+    chainId: chains.arbitrum.id,
+    verify: {
+      etherscan: etherscan('arbitrum'),
+    },
+    companionNetworks: {
+      mainnet: 'mainnet',
+      polygon: 'polygon',
+      optimism: 'optimism',
+      polygonZkEvm: 'polygonZkEvm',
+    },
+  },
+  bsc: {
+    accounts,
+    url: rpc('bsc'),
+    chainId: chains.bsc.id,
+    verify: {
+      etherscan: etherscan('bsc'),
+    },
+    companionNetworks: {
+      polygon: 'polygon',
+    },
+  },
+  polygon: {
+    accounts,
+    url: rpc('polygon'),
+    chainId: chains.polygon.id,
+    verify: {
+      etherscan: etherscan('polygon'),
+    },
+    companionNetworks: {
+      arbitrum: 'arbitrum',
+      polygon: 'polygon',
+      optimism: 'optimism',
+      polygonZkEvm: 'polygonZkEvm',
+    },
+  },
+  optimism: {
+    accounts,
+    url: rpc('optimism'),
+    chainId: chains.optimism.id,
+    verify: {
+      etherscan: etherscan('optimism'),
+    },
+    companionNetworks: {
+      mainnet: 'mainnet',
+      arbitrum: 'arbitrum',
+      polygon: 'polygon',
+      polygonZkEvm: 'polygonZkEvm',
+    },
+  },
+  polygonZkEvm: {
+    accounts,
+    url: rpc('polygonZkEvm'),
+    chainId: chains.polygonZkEvm.id,
+    verify: {
+      etherscan: etherscan('polygonZkEvm'),
+    },
+    companionNetworks: {
+      mainnet: 'mainnet',
+      arbitrum: 'arbitrum',
+      polygon: 'polygon',
+      optimism: 'optimism',
+    },
+  },
+});
+export const testnets = (
+  accounts: HttpNetworkAccountsUserConfig
+): NetworksUserConfig => ({
+  goerli: {
+    accounts,
+    url: rpc('goerli'),
+    chainId: chains.goerli.id,
+    verify: {
+      etherscan: etherscan('goerli'),
+    },
+    companionNetworks: {
+      optimismGoerli: 'optimismGoerli',
+      sepolia: 'sepolia',
+      arbitrumGoerli: 'arbitrumGoerli',
+      polygonMumbai: 'polygonMumbai',
+      polygonZkEvmTestnet: 'polygonZkEvmTestnet',
+    },
+  },
+  sepolia: {
+    accounts,
+    url: rpc('sepolia'),
+    chainId: chains.sepolia.id,
+    verify: {
+      etherscan: etherscan('sepolia'),
+    },
+    companionNetworks: {
+      optimismGoerli: 'optimismGoerli',
+      goerli: 'goerli',
+      arbitrumGoerli: 'arbitrumGoerli',
+      polygonMumbai: 'polygonMumbai',
+      polygonZkEvmTestnet: 'polygonZkEvmTestnet',
+    },
+  },
+  arbitrumGoerli: {
+    accounts,
+    url: rpc('arbitrumGoerli'),
+    chainId: chains.arbitrumGoerli.id,
+    verify: {
+      etherscan: etherscan('arbitrumGoerli'),
+    },
+    companionNetworks: {
+      optimismGoerli: 'optimismGoerli',
+      goerli: 'goerli',
+      sepolia: 'sepolia',
+      polygonMumbai: 'polygonMumbai',
+      polygonZkEvmTestnet: 'polygonZkEvmTestnet',
+    },
+  },
+  polygonMumbai: {
+    accounts,
+    url: rpc('polygonMumbai'),
+    chainId: chains.polygonMumbai.id,
+    verify: {
+      etherscan: etherscan('polygonMumbai'),
+    },
+    companionNetworks: {
+      optimismGoerli: 'optimismGoerli',
+      goerli: 'goerli',
+      sepolia: 'sepolia',
+      arbitrumGoerli: 'arbitrumGoerli',
+      polygonZkEvmTestnet: 'polygonZkEvmTestnet',
+    },
+  },
+  optimismGoerli: {
+    accounts,
+    url: rpc('optimismGoerli'),
+    chainId: chains.optimismGoerli.id,
+    verify: {
+      etherscan: etherscan('optimismGoerli'),
+    },
+    companionNetworks: {
+      goerli: 'goerli',
+      sepolia: 'sepolia',
+      arbitrumGoerli: 'arbitrumGoerli',
+      polygonMumbai: 'polygonMumbai',
+      polygonZkEvmTestnet: 'polygonZkEvmTestnet',
+    },
+  },
+  polygonZkEvmTestnet: {
+    accounts,
+    url: rpc('polygonZkEvmTestnet'),
+    chainId: chains.polygonZkEvmTestnet.id,
+    verify: {
+      etherscan: etherscan('polygonZkEvmTestnet'),
+    },
+    companionNetworks: {
+      optimismGoerli: 'optimismGoerli',
+      goerli: 'goerli',
+      sepolia: 'sepolia',
+      arbitrumGoerli: 'arbitrumGoerli',
+      polygonMumbai: 'polygonMumbai',
+    },
+  },
+});
+
 export const rpc = (network: Networks) => {
   try {
     return omnia(network);
@@ -11,17 +196,61 @@ export const rpc = (network: Networks) => {
 
 export const etherscan = (network: Networks) => {
   return {
-    mainnet: 'https://etherscan.io',
-    goerli: 'https://goerli.etherscan.io',
-    sepolia: 'https://sepolia.etherscan.io',
-    optimism: 'https://optimistic.etherscan.io',
-    optimismGoerli: 'https://optimistic-goerli.etherscan.io',
-    arbitrum: 'https://arbiscan.io',
-    arbitrumGoerli: 'https://goerli-explorer.arbitrum.io',
-    polygon: 'https://polygonscan.com',
-    polygonMumbai: 'https://mumbai.polygonscan.com',
-    polygonZkEvm: 'https://explorer.zkevm.polygonscan.com',
-    polygonZkEvmTestnet: 'https://explorer.testnet.zkevm.polygonscan.com',
+    mainnet: {
+      url: 'https://etherscan.io',
+      apiUrl: process.env.ETHERSCAN_API_URL_MAINNET,
+      apiKey: process.env.ETHERSCAN_API_KEY_MAINNET,
+    },
+    goerli: {
+      url: 'https://goerli.etherscan.io',
+      apiUrl: process.env.ETHERSCAN_API_URL_GOERLI,
+      apiKey: process.env.ETHERSCAN_API_KEY_GOERLI,
+    },
+    sepolia: {
+      url: 'https://sepolia.etherscan.io',
+      apiUrl: process.env.ETHERSCAN_API_URL_SEPOLIA,
+      apiKey: process.env.ETHERSCAN_API_KEY_SEPOLIA,
+    },
+    optimism: {
+      url: 'https://optimistic.etherscan.io',
+      apiUrl: process.env.ETHERSCAN_API_URL_OPTIMISM,
+      apiKey: process.env.ETHERSCAN_API_KEY_OPTIMISM,
+    },
+    optimismGoerli: {
+      url: 'https://goerli-optimism.etherscan.io',
+      apiUrl: process.env.ETHERSCAN_API_URL_OPTIMISM_GOERLI,
+      apiKey: process.env.ETHERSCAN_API_KEY_OPTIMISM_GOERLI,
+    },
+    arbitrum: {
+      url: 'https://arbiscan.io',
+      apiUrl: process.env.ETHERSCAN_API_URL_ARBITRUM,
+      apiKey: process.env.ETHERSCAN_API_KEY_ARBITRUM,
+    },
+    arbitrumGoerli: {
+      url: 'https://goerli.arbiscan.io',
+      apiUrl: process.env.ETHERSCAN_API_URL_ARBITRUM_GOERLI,
+      apiKey: process.env.ETHERSCAN_API_KEY_ARBITRUM_GOERLI,
+    },
+    polygon: {
+      url: 'https://polygonscan.com',
+      apiUrl: process.env.ETHERSCAN_API_URL_POLYGON,
+      apiKey: process.env.ETHERSCAN_API_KEY_POLYGON,
+    },
+    polygonMumbai: {
+      url: 'https://mumbai.polygonscan.com',
+      apiUrl: process.env.ETHERSCAN_API_URL_POLYGON_MUMBAI,
+      apiKey: process.env.ETHERSCAN_API_KEY_POLYGON_MUMBAI,
+    },
+    polygonZkEvm: {
+      url: 'https://zkevm.polygonscan.com/',
+      apiUrl: process.env.ETHERSCAN_API_URL_POLYGON_ZKEVM,
+      apiKey: process.env.ETHERSCAN_API_KEY_POLYGON_ZKEVM,
+    },
+    polygonZkEvmTestnet: {
+      url: 'https://testnet-zkevm.polygonscan.com/',
+      apiUrl: process.env.ETHERSCAN_API_URL_POLYGON_ZKEVM_TESTNET,
+      apiKey: process.env.ETHERSCAN_API_KEY_POLYGON_ZKEVM_TESTNET,
+    },
   }[network];
 };
 
@@ -29,6 +258,7 @@ export const publicRPC = (network: Networks) => {
   return {
     mainnet: process.env.RPC_MAINNET,
     goerli: process.env.RPC_GOERLI,
+    bsc: process.env.RPC_BSC,
     sepolia: process.env.RPC_SEPOLIA,
     optimism: process.env.RPC_OPTIMISM,
     optimismGoerli: process.env.RPC_OPTIMISM_GOERLI,
@@ -40,6 +270,7 @@ export const publicRPC = (network: Networks) => {
     polygonZkEvmTestnet: process.env.RPC_POLYGON_ZKEVM_TESTNET,
   }[network];
 };
+
 export const infura = (network: Networks) => {
   const infuraKey = process.env.INFURA_API_KEY;
   if (!infuraKey) {
@@ -78,11 +309,13 @@ export const alchemy = (network: Networks) => {
   if (network === 'polygonMumbai') alchemyId = 'polygon-mumbai';
   if (network === 'polygonZkEvm') alchemyId = 'polygonzkevm-mainnet';
   if (network === 'polygonZkEvmTestnet') alchemyId = 'polygonzkevm-testnet';
+
+  if (!alchemyId) throw new Error(`No alchemyId found in for ${network}`);
   return `https://${alchemyId}.g.alchemy.com/v2/${alchemyKey}`;
 };
 
 export const omnia = (network: Networks) => {
-  const omniaKey = process.env.OMNIA_API_KEY;
+  const omniaKey = process.env.OMNIATECH_API_KEY;
   if (!omniaKey) {
     throw new Error('No OMNIA_API_KEY found in .env file');
   }
@@ -90,15 +323,18 @@ export const omnia = (network: Networks) => {
   if (network === 'mainnet') omniaId = 'eth/mainnet';
   if (network === 'goerli') omniaId = 'eth/goerli';
   if (network === 'sepolia') omniaId = 'eth/sepolia';
-  if (network === 'optimism') omniaId = 'optimism/mainnet';
-  if (network === 'optimismGoerli') omniaId = 'optimism/goerli';
-  if (network === 'arbitrum') omniaId = 'arbitrum/mainnet';
+  if (network === 'optimism') omniaId = 'op/mainnet';
+  if (network === 'optimismGoerli') omniaId = 'op/goerli';
+  if (network === 'arbitrum') omniaId = 'arbitrum/one';
   if (network === 'arbitrumGoerli') omniaId = 'arbitrum/goerli';
   if (network === 'polygon') omniaId = 'polygon/mainnet';
-  if (network === 'polygonMumbai') omniaId = 'polygon/mumbai';
+  if (network === 'polygonMumbai') omniaId = 'matic/mumbai';
+  if (network === 'bsc') omniaId = 'bsc/mainnet';
 
+  if (!omniaId) throw new Error(`No omniaId found in for ${network}`);
   return `https://endpoints.omniatech.io/v1/${omniaId}/${omniaKey}`;
 };
+
 export const layerZero = {
   mainnet: {
     lzChainId: 101,

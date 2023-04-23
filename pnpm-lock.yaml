@@ -15,6 +15,7 @@ specifiers:
   '@types/chai': ^4.3.4
   '@types/mocha': ^10.0.1
   '@types/node': ^18.15.13
+  '@wagmi/chains': ^0.2.20
   chai: ^4.3.7
   dotenv: ^16.0.3
   dotenv-cli: ^7.2.1
@@ -46,6 +47,7 @@ devDependencies:
   '@types/chai': 4.3.4
   '@types/mocha': 10.0.1
   '@types/node': 18.15.13
+  '@wagmi/chains': 0.2.20_typescript@5.0.4
   chai: 4.3.7
   dotenv: 16.0.3
   dotenv-cli: 7.2.1
@@ -1251,6 +1253,17 @@ packages:
     resolution: {integrity: sha512-Da66lEIFeIz9ltsdMZcpQvmrmmoqrfju8pm1BH8WbYjZSwUgCwXLb9C+9XYogwBITnbsSaMdVPb2ekf7TV+03w==}
     dependencies:
       '@types/node': 18.15.13
+    dev: true
+
+  /@wagmi/chains/0.2.20_typescript@5.0.4:
+    resolution: {integrity: sha512-VdsyZrukVkDbQQBAfQel/Ro7EMBzlO/xYMSblad+v+RMA0CbXYtSx0obiZhfVmK+8IR/5XeSkvv6gC95UReFjA==}
+    peerDependencies:
+      typescript: '>=4.9.4'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      typescript: 5.0.4
     dev: true
 
   /abbrev/1.0.9:
