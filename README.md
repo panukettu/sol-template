@@ -12,6 +12,18 @@ setup [blackbox](https://github.com/StackExchange/blackbox#installation-instruct
 $ make init-blackbox email=NEW@GPG.EMAIL
 ```
 
+or without blackbox
+
+```sh
+cp .env.example .env
+```
+
+postinstall will forge install
+
+```sh
+pnpm i
+```
+
 this repo is derived from [bgd-forge-template](https://github.com/bgd-labs/bgd-forge-template)
 
 ## Included modules
@@ -33,13 +45,6 @@ this repo is derived from [bgd-forge-template](https://github.com/bgd-labs/bgd-f
 This project uses [Foundry](https://getfoundry.sh). See the [book](https://book.getfoundry.sh) for usage.
 
 This project also uses [Hardhat](https://hardhat.org/). See the [docs](https://hardhat.org/hardhat-runner/docs/advanced/hardhat-and-foundry) for more info on hardhat + foundry projects.
-
-### Setup
-
-```sh
-cp .env.example .env
-pnpm i
-```
 
 ### Test
 
