@@ -12,7 +12,7 @@ templates (forking not reliable with public RPCs):
 
 - forge test on multiple forks: `forge test` or `pnpm f:test` or `./test.sh`
 - hh test on single fork: `npx hardhat test` or `pnpm hh:test`
-- hh deploy to multiple chains concurrent : `npx hardhat deploy` or `pnpm hh:deploy`
+- hh deploy to multiple chains concurrent : eg. `npx hardhat deploy --network optimismGoerli` or `pnpm hh:deploy --network optimismGoerli`
 - two gh workflow jobs: hardhat (dispatch) and forge (push, dispatch)
 
 ## setup
