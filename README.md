@@ -1,5 +1,7 @@
 # foundry+hardhat template
 
+_this template is derived from [bgd-forge-template](https://github.com/bgd-labs/bgd-forge-template)_
+
 Uses [Foundry](https://getfoundry.sh). See the [docs](https://book.getfoundry.sh).
 
 Uses [Hardhat](https://hardhat.org/). See the [docs](https://hardhat.org/hardhat-runner/docs/advanced/hardhat-and-foundry).
@@ -90,7 +92,7 @@ tests: 'ts/tests',
 "solidity-coverage": "^0.8.2",
 ```
 
-## forge recommendations
+## forge recommendations ([bgd-forge-template](https://github.com/bgd-labs/bgd-forge-template))
 
 [bgd-labs/solidity-utils](https://github.com/bgd-labs/solidity-utils) - common contracts we use everywhere, ie transparent proxy and around
 
