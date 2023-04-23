@@ -55,6 +55,6 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install packages
-        run: pnpm i
+        run: pnpm i --ignore-scripts
 
       - run: pnpm hh:test
