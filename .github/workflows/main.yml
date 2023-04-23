@@ -34,11 +34,6 @@ jobs:
         with:
           node-version: "19.0"
 
-      - name: Install Foundry
-        uses: foundry-rs/foundry-toolchain@v1
-        with:
-          version: nightly
-
       - uses: pnpm/action-setup@v2.2.4
         name: Install pnpm
         id: pnpm-install
