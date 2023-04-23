@@ -34,6 +34,11 @@ jobs:
         with:
           node-version: "19.0"
 
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
       - uses: pnpm/action-setup@v2.2.4
         name: Install pnpm
         id: pnpm-install
@@ -55,6 +60,6 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install packages
-        run: pnpm i --ignore-scripts
+        run: pnpm i
 
       - run: pnpm hh:test
