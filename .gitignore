@@ -6,6 +6,7 @@ deployments/hardhat
 bin
 
 # general
+.DS_Store
 .env
 
 # editors

@@ -2,16 +2,22 @@
 # (-include to ignore error if it does not exist)
 -include .env
 
-init:
+init-blackbox:
 	@echo "installing blackbox"
 	@brew install blackbox
+	@echo "initializing blackbox"
+	@blackbox_initialize
 	@echo "creating gpg key"
 	@gpg --gen-key
 	@echo "adding blackbox admin"
-	@blackbox_addadmin ${GPG_EMAIL}
+	@blackbox_addadmin ${email}
+	@echo "copying env example"
+	@cp .env.example .env
 	@echo "adding blackbox file"
-	@blackbox_register_new_file .env.example
-	
+	@blackbox_register_new_file .env
+	@echo "decrypting env"
+	@blackbox_decrypt_file .env
+
 # deps
 update:; forge update
 

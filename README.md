@@ -1,12 +1,18 @@
 # foundry+hardhat template
 
-derives from https://github.com/bgd-labs/bgd-forge-template
-
-To create a new project using this template run
+use this template from github / create a new project with forge:
 
 ```shell
 $ forge init --template panukettu/sol-template my_new_project
 ```
+
+setup [blackbox](https://github.com/StackExchange/blackbox#installation-instructions)
+
+```shell
+$ make init-blackbox email=NEW@GPG.EMAIL
+```
+
+this repo is derived from [bgd-forge-template](https://github.com/bgd-labs/bgd-forge-template)
 
 ## Included modules
 
