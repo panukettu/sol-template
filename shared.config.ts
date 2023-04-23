@@ -324,6 +324,8 @@ export const pokt = (network: Networks) => {
   if (network === 'moonriver') poktId = 'moonriver-mainnet';
   if (network === 'gnosis') poktId = 'poa-xdai-archival';
 
+  if (poktId === '') throw new Error('No pokt found for network: ' + network);
+
   return `https://${poktId}.gateway.pokt.network/v1/lb/${POKT_API_KEY}`;
 };
 
