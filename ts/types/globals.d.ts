@@ -17,6 +17,8 @@ declare global {
     getChainId(): Promise<string>;
     provider: EthereumProvider;
   };
+
+  export type RPCProvider = 'pokt' | 'infura' | 'alchemy' | 'omnia';
   export type Networks =
     | 'mainnet'
     | 'goerli'
@@ -29,6 +31,9 @@ declare global {
     | 'polygonMumbai'
     | 'polygonZkEvm'
     | 'bsc'
+    | 'moonbeam'
+    | 'moonriver'
+    | 'gnosis'
     | 'polygonZkEvmTestnet';
 }
 
