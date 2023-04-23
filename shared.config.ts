@@ -48,6 +48,30 @@ export const mainnets = (
       polygon: 'polygon',
     },
   },
+  gnosis: {
+    accounts,
+    url: rpc('gnosis'),
+    chainId: chains.gnosis.id,
+    verify: {
+      etherscan: etherscan('gnosis'),
+    },
+  },
+  moonbeam: {
+    accounts,
+    url: rpc('moonbeam'),
+    chainId: chains.moonbeam.id,
+    verify: {
+      etherscan: etherscan('moonbeam'),
+    },
+  },
+  moonriver: {
+    accounts,
+    url: rpc('moonriver'),
+    chainId: chains.moonriver.id,
+    verify: {
+      etherscan: etherscan('moonriver'),
+    },
+  },
   polygon: {
     accounts,
     url: rpc('polygon'),
@@ -186,9 +210,20 @@ export const testnets = (
   },
 });
 
-export const rpc = (network: Networks) => {
+export const rpc = (network: Networks, provider: RPCProvider = 'pokt') => {
   try {
-    return omnia(network);
+    switch (provider) {
+      case 'pokt':
+        return pokt(network);
+      case 'alchemy':
+        return alchemy(network);
+      case 'infura':
+        return infura(network);
+      case 'omnia':
+        return omnia(network);
+      default:
+        return pokt(network);
+    }
   } catch {
     return publicRPC(network);
   }
@@ -200,6 +235,11 @@ export const etherscan = (network: Networks) => {
       url: 'https://etherscan.io',
       apiUrl: process.env.ETHERSCAN_API_URL_MAINNET,
       apiKey: process.env.ETHERSCAN_API_KEY_MAINNET,
+    },
+    bsc: {
+      url: 'https://bscscan.com',
+      apiUrl: process.env.ETHERSCAN_API_URL_BSC,
+      apiKey: process.env.ETHERSCAN_API_KEY_BSC,
     },
     goerli: {
       url: 'https://goerli.etherscan.io',
@@ -226,6 +266,21 @@ export const etherscan = (network: Networks) => {
       apiUrl: process.env.ETHERSCAN_API_URL_ARBITRUM,
       apiKey: process.env.ETHERSCAN_API_KEY_ARBITRUM,
     },
+    gnosis: {
+      url: 'https://gnosisscan.io',
+      apiUrl: process.env.ETHERSCAN_API_URL_GNOSIS,
+      apiKey: process.env.ETHERSCAN_API_KEY_GNOSIS,
+    },
+    moonbeam: {
+      url: 'https://moonbeam.moonscan.io',
+      apiUrl: process.env.ETHERSCAN_API_URL_MOONBEAM,
+      apiKey: process.env.ETHERSCAN_API_KEY_MOONBEAM,
+    },
+    moonriver: {
+      url: 'https://moonriver.moonscan.io',
+      apiUrl: process.env.ETHERSCAN_API_URL_MOONRIVER,
+      apiKey: process.env.ETHERSCAN_API_KEY_MOONRIVER,
+    },
     arbitrumGoerli: {
       url: 'https://goerli.arbiscan.io',
       apiUrl: process.env.ETHERSCAN_API_URL_ARBITRUM_GOERLI,
@@ -242,16 +297,36 @@ export const etherscan = (network: Networks) => {
       apiKey: process.env.ETHERSCAN_API_KEY_POLYGON_MUMBAI,
     },
     polygonZkEvm: {
-      url: 'https://zkevm.polygonscan.com/',
+      url: 'https://zkevm.polygonscan.com',
       apiUrl: process.env.ETHERSCAN_API_URL_POLYGON_ZKEVM,
       apiKey: process.env.ETHERSCAN_API_KEY_POLYGON_ZKEVM,
     },
     polygonZkEvmTestnet: {
-      url: 'https://testnet-zkevm.polygonscan.com/',
+      url: 'https://testnet-zkevm.polygonscan.com',
       apiUrl: process.env.ETHERSCAN_API_URL_POLYGON_ZKEVM_TESTNET,
       apiKey: process.env.ETHERSCAN_API_KEY_POLYGON_ZKEVM_TESTNET,
     },
   }[network];
+};
+
+export const pokt = (network: Networks) => {
+  const POKT_API_KEY = process.env.POKT_API_KEY;
+  let poktId = '';
+  if (network === 'mainnet') poktId = 'eth-trace';
+  if (network === 'goerli') poktId = 'goerli-archival';
+  if (network === 'optimism') poktId = 'optimism-mainnet';
+  if (network === 'bsc') poktId = 'bsc-archival';
+  if (network === 'arbitrum') poktId = 'arbitrum-one';
+  if (network === 'polygon') poktId = 'poly-archival';
+  if (network === 'polygonZkEvm') poktId = 'polygon-zkevm-mainnet';
+  if (network === 'polygonMumbai') poktId = 'polygon-mumbai';
+  if (network === 'moonbeam') poktId = 'moonbeam-mainnet';
+  if (network === 'moonriver') poktId = 'moonriver-mainnet';
+  if (network === 'gnosis') poktId = 'poa-xdai-archival';
+
+  if (poktId === '') throw new Error('No pokt found for network: ' + network);
+
+  return `https://${poktId}.gateway.pokt.network/v1/lb/${POKT_API_KEY}`;
 };
 
 export const publicRPC = (network: Networks) => {
@@ -259,6 +334,9 @@ export const publicRPC = (network: Networks) => {
     mainnet: process.env.RPC_MAINNET,
     goerli: process.env.RPC_GOERLI,
     bsc: process.env.RPC_BSC,
+    gnosis: process.env.RPC_GNOSIS,
+    moonbeam: process.env.RPC_MOONBEAM,
+    moonriver: process.env.RPC_MOONRIVER,
     sepolia: process.env.RPC_SEPOLIA,
     optimism: process.env.RPC_OPTIMISM,
     optimismGoerli: process.env.RPC_OPTIMISM_GOERLI,

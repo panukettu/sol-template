@@ -2,6 +2,8 @@ import { BigNumber } from 'ethers';
 import { logger } from './utils.ts';
 
 import type { HardhatRuntimeEnvironment } from 'hardhat/types/runtime.ts';
+import { extendEnvironment } from 'hardhat/config.js';
+import { rpc } from '../../shared.config.ts';
 
 export const logContext = async (hre: HardhatRuntimeEnvironment) => {
   const log = logger('context');
@@ -55,3 +57,31 @@ export const getCtx = async (hre: HardhatRuntimeEnvironment) => {
     companions: hre.companionNetworks,
   };
 };
+
+extendEnvironment((hre) => {
+  hre.logCtx = () => logContext(hre);
+  hre.ctx = () => getCtx(hre);
+  hre.hash = (value: string) => hre.ethers.utils.id(value);
+  hre.salt = (value: string) => hre.ethers.utils.formatBytes32String(value);
+  hre.read = (network, contract, funcName, ...args) => {
+    try {
+      const provider = new hre.ethers.providers.JsonRpcProvider(rpc(network));
+      const contractWithSigner = contract.connect(provider);
+      return contractWithSigner.callStatic[funcName](...args);
+    } catch (e) {
+      console.error(`Error reading on ${network}: e`);
+    }
+  };
+  hre.exec = (network, contract, funcName, ...args) => {
+    try {
+      const provider = new hre.ethers.providers.JsonRpcProvider(rpc(network));
+      const contractWithSigner = contract.connect(provider);
+      return contractWithSigner[funcName](...args);
+    } catch (e) {
+      console.error(`Error executing on ${network}: e`);
+    }
+  };
+  hre.toBig = (value, dec = 18) =>
+    hre.ethers.utils.parseUnits(String(value), dec);
+  hre.fromBig = (value, dec = 18) => hre.ethers.utils.formatUnits(value, dec);
+});
