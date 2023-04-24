@@ -19,7 +19,8 @@ node_modules
 broadcast
 
 # temporary files
-temp
+temp/**/*
+!temp/.empty
 /.blackbox/pubring.gpg~
 /.blackbox/pubring.kbx~
 /.blackbox/secring.gpg

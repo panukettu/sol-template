@@ -4,3 +4,4 @@ node_modules/
 deployments/
 pnpm-lock.yaml
 ts/types/typechain
+temp/

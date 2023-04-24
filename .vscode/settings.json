@@ -1,4 +1,5 @@
 {
   "solidity.monoRepoSupport": true,
-  "solidity.compileUsingRemoteVersion": "latest"
+  "solidity.compileUsingRemoteVersion": "latest",
+  "editor.formatOnSave": true
 }

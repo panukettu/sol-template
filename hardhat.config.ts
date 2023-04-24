@@ -5,7 +5,7 @@ import 'hardhat-deploy';
 import type { HardhatUserConfig } from 'hardhat/types';
 import { mainnets, rpc, testnets } from './shared.config.ts';
 import './ts/scripts/extensions.ts';
-
+import './ts/tasks/index.ts';
 if (
   !process.env.PRIVATE_KEY &&
   !process.env.MNEMONIC &&
@@ -57,6 +57,11 @@ const config: HardhatUserConfig = {
   namedAccounts: {
     deployer: {
       default: 0,
+    },
+    external: {
+      default: `privatekey://${
+        process.env.PRIVATE_KEY_EXTERNAL || '0'.repeat(64)
+      }`,
     },
   },
   networks: {

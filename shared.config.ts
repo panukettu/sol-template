@@ -37,6 +37,14 @@ export const mainnets = (
       polygonZkEvm: 'polygonZkEvm',
     },
   },
+  arbitrumNova: {
+    accounts,
+    url: rpc('arbitrumNova'),
+    chainId: chains.arbitrumNova.id,
+    verify: {
+      etherscan: etherscan('arbitrumNova'),
+    },
+  },
   bsc: {
     accounts,
     url: rpc('bsc'),
@@ -114,6 +122,54 @@ export const mainnets = (
       optimism: 'optimism',
     },
   },
+  fantom: {
+    accounts,
+    url: rpc('fantom'),
+    chainId: chains.fantom.id,
+    verify: {
+      etherscan: etherscan('fantom'),
+    },
+  },
+  harmony: {
+    accounts,
+    url: rpc('harmony'),
+    chainId: chains.harmonyOne.id,
+  },
+  celo: {
+    accounts,
+    url: rpc('celo'),
+    chainId: chains.celo.id,
+    verify: {
+      etherscan: etherscan('celo'),
+    },
+  },
+  aurora: {
+    accounts,
+    url: rpc('aurora'),
+    chainId: chains.aurora.id,
+    verify: {
+      etherscan: etherscan('aurora'),
+    },
+  },
+  avax: {
+    accounts,
+    url: rpc('avax'),
+    chainId: chains.avalanche.id,
+    verify: {
+      etherscan: etherscan('avax'),
+    },
+  },
+  metis: {
+    accounts,
+    url: rpc('metis'),
+    chainId: chains.metis.id,
+  },
+  zkSync: {
+    accounts,
+    url: rpc('zkSync'),
+    chainId: chains.zkSync.id,
+    zksync: true,
+  },
 });
 export const testnets = (
   accounts: HttpNetworkAccountsUserConfig
@@ -187,10 +243,10 @@ export const testnets = (
     },
     companionNetworks: {
       goerli: 'goerli',
-      sepolia: 'sepolia',
-      arbitrumGoerli: 'arbitrumGoerli',
-      polygonMumbai: 'polygonMumbai',
-      polygonZkEvmTestnet: 'polygonZkEvmTestnet',
+      // sepolia: 'sepolia',
+      // arbitrumGoerli: 'arbitrumGoerli',
+      // polygonMumbai: 'polygonMumbai',
+      // polygonZkEvmTestnet: 'polygonZkEvmTestnet',
     },
   },
   polygonZkEvmTestnet: {
@@ -207,6 +263,12 @@ export const testnets = (
       arbitrumGoerli: 'arbitrumGoerli',
       polygonMumbai: 'polygonMumbai',
     },
+  },
+  zkSyncTestnet: {
+    accounts,
+    url: rpc('zkSyncTestnet'),
+    chainId: chains.zkSyncTestnet.id,
+    zksync: true,
   },
 });
 
@@ -241,30 +303,20 @@ export const etherscan = (network: Networks) => {
       apiUrl: process.env.ETHERSCAN_API_URL_BSC,
       apiKey: process.env.ETHERSCAN_API_KEY_BSC,
     },
-    goerli: {
-      url: 'https://goerli.etherscan.io',
-      apiUrl: process.env.ETHERSCAN_API_URL_GOERLI,
-      apiKey: process.env.ETHERSCAN_API_KEY_GOERLI,
-    },
-    sepolia: {
-      url: 'https://sepolia.etherscan.io',
-      apiUrl: process.env.ETHERSCAN_API_URL_SEPOLIA,
-      apiKey: process.env.ETHERSCAN_API_KEY_SEPOLIA,
-    },
     optimism: {
       url: 'https://optimistic.etherscan.io',
       apiUrl: process.env.ETHERSCAN_API_URL_OPTIMISM,
       apiKey: process.env.ETHERSCAN_API_KEY_OPTIMISM,
     },
-    optimismGoerli: {
-      url: 'https://goerli-optimism.etherscan.io',
-      apiUrl: process.env.ETHERSCAN_API_URL_OPTIMISM_GOERLI,
-      apiKey: process.env.ETHERSCAN_API_KEY_OPTIMISM_GOERLI,
-    },
     arbitrum: {
       url: 'https://arbiscan.io',
       apiUrl: process.env.ETHERSCAN_API_URL_ARBITRUM,
       apiKey: process.env.ETHERSCAN_API_KEY_ARBITRUM,
+    },
+    arbitrumNova: {
+      url: 'https://nova.arbiscan.io',
+      apiUrl: process.env.ETHERSCAN_API_URL_ARBITRUM_NOVA,
+      apiKey: process.env.ETHERSCAN_API_KEY_ARBITRUM_NOVA,
     },
     gnosis: {
       url: 'https://gnosisscan.io',
@@ -281,10 +333,25 @@ export const etherscan = (network: Networks) => {
       apiUrl: process.env.ETHERSCAN_API_URL_MOONRIVER,
       apiKey: process.env.ETHERSCAN_API_KEY_MOONRIVER,
     },
-    arbitrumGoerli: {
-      url: 'https://goerli.arbiscan.io',
-      apiUrl: process.env.ETHERSCAN_API_URL_ARBITRUM_GOERLI,
-      apiKey: process.env.ETHERSCAN_API_KEY_ARBITRUM_GOERLI,
+    polygonZkEvm: {
+      url: 'https://zkevm.polygonscan.com',
+      apiUrl: process.env.ETHERSCAN_API_URL_POLYGON_ZKEVM,
+      apiKey: process.env.ETHERSCAN_API_KEY_POLYGON_ZKEVM,
+    },
+    celo: {
+      url: 'https://celoscan.io',
+      apiUrl: process.env.ETHERSCAN_API_URL_CELO,
+      apiKey: process.env.ETHERSCAN_API_KEY_CELO,
+    },
+    avax: {
+      url: 'https://snowtrace.io',
+      apiUrl: process.env.ETHERSCAN_API_URL_AVAX,
+      apiKey: process.env.ETHERSCAN_API_KEY_AVAX,
+    },
+    fantom: {
+      url: 'https://ftmscan.com',
+      apiUrl: process.env.ETHERSCAN_API_URL_FANTOM,
+      apiKey: process.env.ETHERSCAN_API_KEY_FANTOM,
     },
     polygon: {
       url: 'https://polygonscan.com',
@@ -296,10 +363,25 @@ export const etherscan = (network: Networks) => {
       apiUrl: process.env.ETHERSCAN_API_URL_POLYGON_MUMBAI,
       apiKey: process.env.ETHERSCAN_API_KEY_POLYGON_MUMBAI,
     },
-    polygonZkEvm: {
-      url: 'https://zkevm.polygonscan.com',
-      apiUrl: process.env.ETHERSCAN_API_URL_POLYGON_ZKEVM,
-      apiKey: process.env.ETHERSCAN_API_KEY_POLYGON_ZKEVM,
+    arbitrumGoerli: {
+      url: 'https://goerli.arbiscan.io',
+      apiUrl: process.env.ETHERSCAN_API_URL_ARBITRUM_GOERLI,
+      apiKey: process.env.ETHERSCAN_API_KEY_ARBITRUM_GOERLI,
+    },
+    optimismGoerli: {
+      url: 'https://goerli-optimism.etherscan.io',
+      apiUrl: process.env.ETHERSCAN_API_URL_OPTIMISM_GOERLI,
+      apiKey: process.env.ETHERSCAN_API_KEY_OPTIMISM_GOERLI,
+    },
+    goerli: {
+      url: 'https://goerli.etherscan.io',
+      apiUrl: process.env.ETHERSCAN_API_URL_GOERLI,
+      apiKey: process.env.ETHERSCAN_API_KEY_GOERLI,
+    },
+    sepolia: {
+      url: 'https://sepolia.etherscan.io',
+      apiUrl: process.env.ETHERSCAN_API_URL_SEPOLIA,
+      apiKey: process.env.ETHERSCAN_API_KEY_SEPOLIA,
     },
     polygonZkEvmTestnet: {
       url: 'https://testnet-zkevm.polygonscan.com',
@@ -327,6 +409,11 @@ export const pokt = (network: Networks) => {
   if (network === 'moonbeam') poktId = 'moonbeam-mainnet';
   if (network === 'moonriver') poktId = 'moonriver-mainnet';
   if (network === 'gnosis') poktId = 'poa-xdai-archival';
+  if (network === 'celo') poktId = 'celo-mainnet';
+  if (network === 'fantom') poktId = 'fantom-mainnet';
+  if (network === 'avax') poktId = 'avax-archival';
+  if (network === 'harmony') poktId = 'harmony-0';
+  if (network === 'metis') poktId = 'metis-mainnet';
 
   if (poktId === '') throw new Error('No pokt found for network: ' + network);
 
@@ -345,11 +432,20 @@ export const publicRPC = (network: Networks) => {
     optimism: process.env.RPC_OPTIMISM,
     optimismGoerli: process.env.RPC_OPTIMISM_GOERLI,
     arbitrum: process.env.RPC_ARBITRUM,
+    arbitrumNova: process.env.RPC_ARBITRUM_NOVA,
     arbitrumGoerli: process.env.RPC_ARBITRUM_GOERLI,
     polygon: process.env.RPC_POLYGON,
     polygonMumbai: process.env.RPC_POLYGON_MUMBAI,
     polygonZkEvm: process.env.RPC_POLYGON_ZKEVM,
     polygonZkEvmTestnet: process.env.RPC_POLYGON_ZKEVM_TESTNET,
+    fantom: process.env.RPC_FANTOM,
+    metis: process.env.RPC_METIS,
+    celo: process.env.RPC_CELO,
+    zkSync: process.env.RPC_ZKSYNC,
+    harmony: process.env.RPC_HARMONY,
+    avax: process.env.RPC_AVAX,
+    aurora: process.env.RPC_AURORA,
+    zkSyncTestnet: process.env.RPC_ZKSYNC_TESTNET,
   }[network];
 };
 
@@ -412,6 +508,8 @@ export const omnia = (network: Networks) => {
   if (network === 'polygon') omniaId = 'polygon/mainnet';
   if (network === 'polygonMumbai') omniaId = 'matic/mumbai';
   if (network === 'bsc') omniaId = 'bsc/mainnet';
+  if (network === 'avax') omniaId = 'avax/mainnet';
+  if (network === 'fantom') omniaId = 'fantom/mainnet';
 
   if (!omniaId) throw new Error(`No omniaId found in for ${network}`);
   return `https://endpoints.omniatech.io/v1/${omniaId}/${omniaKey}`;
@@ -430,17 +528,14 @@ export const layerZero = {
     lzChainId: 102,
     endpoint: '0x3c2269811836af69497E5F486A85D7316753cf62',
   },
+  optimism: {
+    lzChainId: 111,
+    endpoint: '0x3c2269811836af69497E5F486A85D7316753cf62',
+    confirmations: 6,
+  },
   polygon: {
     lzChainId: 109,
     endpoint: '0x3c2269811836af69497E5F486A85D7316753cf62',
-  },
-  avax: {
-    lzChainId: 106,
-    endpoint: '0x3c2269811836af69497E5F486A85D7316753cf62',
-  },
-  fantom: {
-    lzChainId: 112,
-    endpoint: '0xb6319cC6c8c27A8F5dAF0dD3DF91EA35C4720dd7',
   },
   moonbeam: {
     lzChainId: 126,
@@ -454,28 +549,42 @@ export const layerZero = {
     lzChainId: 145,
     endpoint: '0x9740FF91F1985D8d2B71494aE1A2f723bb3Ed9E4',
   },
-  zkSyncEra: {
-    lzChainId: 165,
-    endpoint: '0x9b896c0e23220469C7AE69cb4BbAE391eAa4C8da',
-  },
-  optimism: {
-    lzChainId: 111,
-    endpoint: '0x3c2269811836af69497E5F486A85D7316753cf62',
-    confirmations: 6,
-  },
   polygonZkEvm: {
     lzChainId: 158,
     endpoint: '0x9740FF91F1985D8d2B71494aE1A2f723bb3Ed9E4',
   },
+  zkSync: {
+    lzChainId: 165,
+    endpoint: '0x9b896c0e23220469C7AE69cb4BbAE391eAa4C8da',
+  },
+  celo: {
+    lzChainId: 125,
+    endpoint: '0x3A73033C0b1407574C76BdBAc67f126f6b4a9AA9',
+  },
+  avax: {
+    lzChainId: 106,
+    endpoint: '0x3c2269811836af69497E5F486A85D7316753cf62',
+  },
+  fantom: {
+    lzChainId: 112,
+    endpoint: '0xb6319cC6c8c27A8F5dAF0dD3DF91EA35C4720dd7',
+  },
+  harmony: {
+    lzChainId: 116,
+    endpoint: '0x9740FF91F1985D8d2B71494aE1A2f723bb3Ed9E4',
+  },
+  metis: {
+    lzChainId: 151,
+    endpoint: '0x9740FF91F1985D8d2B71494aE1A2f723bb3Ed9E4',
+  },
+  /* -------------------------------------------------------------------------- */
+  /*                                  TESTNETS                                  */
+  /* -------------------------------------------------------------------------- */
   goerli: {
     lzChainId: 10121,
     endpoint: '0xbfD2135BFfbb0B5378b56643c2Df8a87552Bfa23',
   },
   optimismGoerli: {
-    lzChainId: 10132,
-    endpoint: '0xae92d5aD7583AD66E49A0c67BAd18F6ba52dDDc1',
-  },
-  hardhat: {
     lzChainId: 10132,
     endpoint: '0xae92d5aD7583AD66E49A0c67BAd18F6ba52dDDc1',
   },
@@ -509,8 +618,14 @@ export const layerZeroBlockConfig = {
   [layerZero.arbitrum.lzChainId]: 20,
   [layerZero.optimism.lzChainId]: 20,
   [layerZero.fantom.lzChainId]: 5,
+  [layerZero.harmony.lzChainId]: 5,
+  [layerZero.metis.lzChainId]: 5,
   [layerZero.moonbeam.lzChainId]: 10,
   [layerZero.gnosis.lzChainId]: 5,
+  [layerZero.celo.lzChainId]: 5,
+  /* -------------------------------------------------------------------------- */
+  /*                                  Testnets                                  */
+  /* -------------------------------------------------------------------------- */
   [layerZero.polygonMumbai.lzChainId]: 10,
   [layerZero.goerli.lzChainId]: 3,
   [layerZero.arbitrumGoerli.lzChainId]: 3,

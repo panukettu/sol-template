@@ -3,7 +3,7 @@ import { logger } from './utils.ts';
 
 import type { HardhatRuntimeEnvironment } from 'hardhat/types/runtime.ts';
 import { extendEnvironment } from 'hardhat/config.js';
-import { rpc } from '../../shared.config.ts';
+import { etherscan, rpc } from '../../shared.config.ts';
 
 export const logContext = async (hre: HardhatRuntimeEnvironment) => {
   const log = logger('context');
@@ -61,6 +61,31 @@ export const getCtx = async (hre: HardhatRuntimeEnvironment) => {
 extendEnvironment((hre) => {
   hre.logCtx = () => logContext(hre);
   hre.ctx = () => getCtx(hre);
+  hre.explorerTx = (tx, network = hre.network.name) => {
+    const explorer = etherscan(network as any).url;
+    if (!explorer) {
+      console.warn(`No explorer for network ${network}!`);
+    }
+    if (!tx.hash) {
+      const result = `${explorer}/tx/${tx.transactionHash}`;
+      console.log(result);
+      return result;
+    } else if (!tx.transactionHash) {
+      const result = `${explorer}/tx/${tx.hash}`;
+      console.log(result);
+      return result;
+    }
+    console.warn(`No tx hash found in ${tx}`);
+  };
+  hre.explorerAddr = (address, network = hre.network.name) => {
+    const explorer = etherscan(network as any).url;
+    if (!explorer) {
+      console.warn(`No explorer for network ${network}!`);
+    }
+    const result = `${explorer}/address/${address}`;
+    console.log(result);
+    return result;
+  };
   hre.hash = (value: string) => hre.ethers.utils.id(value);
   hre.salt = (value: string) => hre.ethers.utils.formatBytes32String(value);
   hre.read = (network, contract, funcName, ...args) => {

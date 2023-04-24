@@ -28,7 +28,7 @@ contract Base is Test {
   function testBoo() public {
     vm.selectFork(mainnet);
     assertEq(deployMain.boo(), 'Boo!');
-    
+
     vm.selectFork(testnet);
     assertEq(deployTest.boo(), 'Boo!');
   }

@@ -1,29 +1,17 @@
-import type { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers.js';
+import type { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers.ts';
 import type { BigNumber, Contract } from 'ethers';
-import type { Address, DeploymentsExtension } from 'hardhat-deploy/types.ts';
-import type {
-  EthereumProvider,
-  HardhatRuntimeEnvironment,
-} from 'hardhat/types';
+import type { DeploymentsExtension } from 'hardhat-deploy/types.ts';
 import 'hardhat/types/config';
+import type { CompanionNetwork } from './index.ts';
 
 declare global {
-  export type CompanionNetwork = {
-    deployments: DeploymentsExtension;
-    getNamedAccounts: () => Promise<{
-      [name: string]: Address;
-    }>;
-    getUnnamedAccounts: () => Promise<string[]>;
-    getChainId(): Promise<string>;
-    provider: EthereumProvider;
-  };
-
   export type RPCProvider = 'pokt' | 'infura' | 'alchemy' | 'omnia';
   export type Networks =
     | 'mainnet'
     | 'goerli'
     | 'sepolia'
     | 'arbitrum'
+    | 'arbitrumNova'
     | 'arbitrumGoerli'
     | 'optimism'
     | 'optimismGoerli'
@@ -34,6 +22,14 @@ declare global {
     | 'moonbeam'
     | 'moonriver'
     | 'gnosis'
+    | 'celo'
+    | 'avax'
+    | 'fantom'
+    | 'aurora'
+    | 'metis'
+    | 'harmony'
+    | 'zkSync'
+    | 'zkSyncTestnet'
     | 'polygonZkEvmTestnet';
 }
 
@@ -42,6 +38,8 @@ declare module 'hardhat/types/runtime.ts' {
     toBig: (value: string | number, dec?: number) => BigNumber;
     fromBig: (value: BigNumber, dec?: number) => string;
     hash: (value: string) => string;
+    explorerTx: (tx: any, network?: string) => string;
+    explorerAddr: (tx: any, network?: string) => string;
     salt: (value: string) => string;
     read: <T = any>(
       network: Networks,

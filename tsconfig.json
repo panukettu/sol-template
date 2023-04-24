@@ -12,7 +12,7 @@
   },
   "ts-node": {
     "swc": true,
-    "include": ["./ts"],
+    "include": ["ts"],
     "experimentalSpecifierResolution": "node",
     "moduleTypes": {
       "ts/deploy/*.ts": "cjs",
@@ -25,12 +25,12 @@
     "esm": true,
     "require": ["tsconfig-paths/register"]
   },
-  "files": ["hardhat.config.ts", "shared.config.ts", "ts/types/globals.d.ts"],
-  "include": ["./ts/**/*.ts"],
+  "files": ["hardhat.config.ts", "shared.config.ts"],
+  "include": ["ts/**/*.ts"],
   "exclude": ["node_modules", "dist", "build", "bin", "lib"],
   "references": [
     {
-      "path": "./ts/types/tsconfig.json"
+      "path": "ts/types/tsconfig.json"
     }
   ]
 }

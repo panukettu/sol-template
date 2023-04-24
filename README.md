@@ -100,18 +100,22 @@ tests: 'ts/tests',
 
 [bgd-labs/aave-helpers](https://github.com/bgd-labs/aave-helpers) - useful utils for integration, and not only testing related to Aave ecosystem contracts
 
-## advanced features ([bgd-forge-template](https://github.com/bgd-labs/bgd-forge-template))
+## advanced features (mostly from [bgd-forge-template](https://github.com/bgd-labs/bgd-forge-template))
 
-### Diffing
+### unverified contract abi
+
+`npx hardhat whatsabi --address 0x --save true/false (saved in temp/{address}.json)
+
+### diffing
 
 For contracts upgrading implementations it's quite important to diff the implementation code to spot potential issues and ensure only the intended changes are included.
 Therefore the `Makefile` includes some commands to streamline the diffing process.
 
-#### Download
+#### download
 
 You can `download` the current contract code of a deployed contract via `make download chain=polygon address=0x00`. This will download the contract source for specified address to `src/etherscan/chain_address`. This command works for all chains with a etherscan compatible block explorer.
 
-#### Git diff
+#### git diff
 
 You can `git-diff` a downloaded contract against your src via `make git-diff before=./etherscan/chain_address after=./src out=filename`. This command will diff the two folders via git patience algorithm and write the output to `diffs/filename.md`.
 

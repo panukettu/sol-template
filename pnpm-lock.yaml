@@ -9,6 +9,7 @@ specifiers:
   '@nomiclabs/hardhat-ethers': ^2.2.3
   '@nomiclabs/hardhat-etherscan': ^3.1.7
   '@nomiclabs/hardhat-solhint': ^3.0.1
+  '@shazow/whatsabi': ^0.5.0
   '@swc/core': ^1.3.53
   '@typechain/ethers-v5': ^10.2.0
   '@typechain/hardhat': ^6.1.5
@@ -26,6 +27,7 @@ specifiers:
   prettier: 2.8.7
   prettier-plugin-solidity: 1.1.3
   solhint: ^3.4.1
+  solhint-plugin-prettier: ^0.0.5
   solidity-coverage: ^0.8.2
   ts-node: ^10.9.1
   tsconfig-paths: ^4.2.0
@@ -41,6 +43,7 @@ devDependencies:
   '@nomiclabs/hardhat-ethers': 2.2.3_kftl4jxdh4nrzvmw72kgr5bdrq
   '@nomiclabs/hardhat-etherscan': 3.1.7_hardhat@2.14.0
   '@nomiclabs/hardhat-solhint': 3.0.1_hardhat@2.14.0
+  '@shazow/whatsabi': 0.5.0
   '@swc/core': 1.3.53
   '@typechain/ethers-v5': 10.2.0_4wrrgmu5ccqw36ak77gr52xdxe
   '@typechain/hardhat': 6.1.5_apesuja2n2gxp3kmlhy5hulili
@@ -58,6 +61,7 @@ devDependencies:
   prettier: 2.8.7
   prettier-plugin-solidity: 1.1.3_prettier@2.8.7
   solhint: 3.4.1
+  solhint-plugin-prettier: 0.0.5_6jezwpczaixi35dwyphy62vx2q
   solidity-coverage: 0.8.2_hardhat@2.14.0
   ts-node: 10.9.1_hqa7phrwrwdy7qif23jie3n27e
   tsconfig-paths: 4.2.0
@@ -987,6 +991,17 @@ packages:
     dependencies:
       '@sentry/types': 5.30.0
       tslib: 1.14.1
+    dev: true
+
+  /@shazow/whatsabi/0.5.0:
+    resolution: {integrity: sha512-AqAJ5CNPZF/69Wv4SSnTnJg3udwvw4QJz3zhhMKAaHDZU29OALHM4KwN6vCy8mzrbz5uzw3N370Mp7dIbEakVA==}
+    dependencies:
+      '@ethersproject/abi': 5.7.0
+      '@ethersproject/abstract-provider': 5.7.0
+      '@ethersproject/address': 5.7.0
+      '@ethersproject/bytes': 5.7.0
+      '@ethersproject/hash': 5.7.0
+      '@ethersproject/web': 5.7.1
     dev: true
 
   /@solidity-parser/parser/0.14.5:
@@ -4141,6 +4156,13 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
+  /prettier-linter-helpers/1.0.0:
+    resolution: {integrity: sha512-GbK2cP9nraSSUF9N2XwUwqfzlAFlMNYYl+ShE/V+H8a9uNl/oUqB1w2EL54Jh0OlyRSd8RfWYJ3coVS4TROP2w==}
+    engines: {node: '>=6.0.0'}
+    dependencies:
+      fast-diff: 1.2.0
+    dev: true
+
   /prettier-plugin-solidity/1.1.3_prettier@2.8.7:
     resolution: {integrity: sha512-fQ9yucPi2sBbA2U2Xjh6m4isUTJ7S7QLc/XDDsktqqxYfTwdYKJ0EnnywXHwCGAaYbQNK+HIYPL1OemxuMsgeg==}
     engines: {node: '>=12'}
@@ -4596,6 +4618,17 @@ packages:
       tmp: 0.0.33
     transitivePeerDependencies:
       - debug
+    dev: true
+
+  /solhint-plugin-prettier/0.0.5_6jezwpczaixi35dwyphy62vx2q:
+    resolution: {integrity: sha512-7jmWcnVshIrO2FFinIvDQmhQpfpS2rRRn3RejiYgnjIE68xO2bvrYvjqVNfrio4xH9ghOqn83tKuTzLjEbmGIA==}
+    peerDependencies:
+      prettier: ^1.15.0 || ^2.0.0
+      prettier-plugin-solidity: ^1.0.0-alpha.14
+    dependencies:
+      prettier: 2.8.7
+      prettier-linter-helpers: 1.0.0
+      prettier-plugin-solidity: 1.1.3_prettier@2.8.7
     dev: true
 
   /solhint/3.4.1:
