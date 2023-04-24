@@ -243,10 +243,10 @@ export const testnets = (
     },
     companionNetworks: {
       goerli: 'goerli',
-      // sepolia: 'sepolia',
-      // arbitrumGoerli: 'arbitrumGoerli',
-      // polygonMumbai: 'polygonMumbai',
-      // polygonZkEvmTestnet: 'polygonZkEvmTestnet',
+      sepolia: 'sepolia',
+      arbitrumGoerli: 'arbitrumGoerli',
+      polygonMumbai: 'polygonMumbai',
+      polygonZkEvmTestnet: 'polygonZkEvmTestnet',
     },
   },
   polygonZkEvmTestnet: {
