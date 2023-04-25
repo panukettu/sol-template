@@ -29,3 +29,30 @@ interface IPolygonZkEvmBridge {
     bytes calldata permitData
   ) external payable;
 }
+
+library Optimism {
+  address internal constant BRIDGE_GOERLI = 0x636Af16bf2f682dD3109e60102b8E1A089FedAa8;
+  address internal constant BRIDGE_MAINNET = 0x99C9fc46f92E8a1c0deC1b1747d010903E884bE1;
+}
+
+interface IOPBridge {
+  /**
+   * @dev Deposit an amount of ETH to a recipient's balance on L2.
+   * @param _to L2 address to credit the withdrawal to.
+   * @param _l2Gas Gas limit required to complete the deposit on L2.
+   * @param _data Optional data to forward to L2. This data is provided
+   *        solely as a convenience for external contracts. Aside from enforcing a maximum
+   *        length, these contracts provide no guarantees about its content.
+   */
+  function depositETHTo(address _to, uint32 _l2Gas, bytes calldata _data) external payable;
+}
+
+library Arbitrum {
+  address internal constant BRIDGE_GOERLI = 0x6BEbC4925716945D46F0Ec336D5C2564F419682C;
+  address internal constant BRIDGE_MAINNET = 0x4Dbd4fc535Ac27206064B68FfCf827b0A60BAB3f;
+  address internal constant BRIDGE_MAINNET_NOVA = 0xc4448b71118c9071Bcb9734A0EAc55D18A153949;
+}
+
+interface IArbitrumBridge {
+  function depositEth() external payable;
+}
