@@ -20,6 +20,11 @@ jobs:
           version: nightly
 
       - run: forge test
+        env:
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          PRIVATE_KEY_TESTNET: ${{ secrets.PRIVATE_KEY_TESTNET }}
+          MNEMONIC: ${{ secrets.MNEMONIC }}
+          MNEMONIC_TESTNET: ${{ secrets.MNEMONIC_TESTNET }}
   hardhat:
     if: github.event_name == 'workflow_dispatch'
     name: hardhat tests
@@ -63,3 +68,8 @@ jobs:
         run: pnpm i
 
       - run: pnpm hh:test
+        env:
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          PRIVATE_KEY_TESTNET: ${{ secrets.PRIVATE_KEY_TESTNET }}
+          MNEMONIC: ${{ secrets.MNEMONIC }}
+          MNEMONIC_TESTNET: ${{ secrets.MNEMONIC_TESTNET }}
