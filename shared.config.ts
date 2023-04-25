@@ -464,6 +464,9 @@ export const infura = (network: Networks) => {
   if (network === 'arbitrumGoerli') infuraId = 'arbitrum-goerli';
   if (network === 'polygon') infuraId = 'polygon-mainnet';
   if (network === 'polygonMumbai') infuraId = 'polygon-mumbai';
+  if (network === 'avax') infuraId = 'avalanche-mainnet';
+  if (network === 'celo') infuraId = 'celo-mainnet';
+  if (network === 'aurora') infuraId = 'aurora-mainnet';
   if (network === 'polygonZkEvm') infuraId = 'polygonzkevm-mainnet';
   if (network === 'polygonZkEvmTestnet') infuraId = 'polygonzkevm-testnet';
   return `https://${infuraId}.infura.io/v3/${infuraKey}`;
