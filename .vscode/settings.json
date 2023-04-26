@@ -2,14 +2,6 @@
   "solidity.monoRepoSupport": true,
   "solidity.compileUsingRemoteVersion": "latest",
   "editor.formatOnSave": true,
-  "solidity.packageDefaultDependenciesDirectory": "lib",
-  "solidity.packageDefaultDependenciesContractsDirectory": "src",
-  "solidity.remappingsUnix": [
-    "ds-test/=lib/forge-std/lib/ds-test/src/",
-    "forge-std/=lib/forge-std/src/",
-    "solmate/=lib/solmate/src/",
-    "kresko-helpers/=lib/kresko-foundry-helpers/src/",
-    "oz-upgradeable/=lib/kresko-foundry-helpers/lib/openzeppelin-contracts-upgradeable/contracts/",
-    "oz-contracts/=lib/kresko-foundry-helpers/lib/openzeppelin-contracts/contracts/"
-  ]
+  "solidity.packageDefaultDependenciesDirectory": "",
+  "solidity.packageDefaultDependenciesContractsDirectory": ""
 }
