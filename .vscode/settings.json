@@ -1,5 +1,7 @@
 {
   "solidity.monoRepoSupport": true,
   "solidity.compileUsingRemoteVersion": "latest",
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "solidity.packageDefaultDependenciesDirectory": "",
+  "solidity.packageDefaultDependenciesContractsDirectory": ""
 }

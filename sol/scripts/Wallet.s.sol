@@ -3,7 +3,7 @@ pragma solidity >=0.8.18;
 
 import { Script } from 'forge-std/Script.sol';
 
-contract WalletBase is Script {
+contract Wallet is Script {
   string public mnemonicId;
 
   constructor(string memory _mnemonicId) {
@@ -33,14 +33,4 @@ contract WalletBase is Script {
   function getAddr(string memory key) public view returns (address) {
     return vm.addr(vm.envUint(key));
   }
-}
-
-// solhint-disable-next-line no-empty-blocks
-abstract contract Wallets is WalletBase('MNEMONIC') {
-
-}
-
-// solhint-disable-next-line no-empty-blocks
-abstract contract TestWallets is WalletBase('MNEMONIC_TESTNET') {
-
 }
