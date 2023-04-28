@@ -8,14 +8,54 @@ Uses [Hardhat](https://hardhat.org/). See the [docs](https://hardhat.org/hardhat
 
 Use [blackbox](https://github.com/StackExchange/blackbox#installation-instructions) to commit encrypted secrets (optional)
 
-Lots of boilerplate for RPC, Etherscan and LayerZero configuration.
+Boilerplate for RPC, Etherscan, LayerZero, AMMs.
 
-templates (forking not reliable with public RPCs):
+Forge helpers:
+```solidity
+import { Wallet } from './Wallet.s.sol';
 
-- forge test on multiple forks: `forge test` or `pnpm f:test` or `./test.sh`
-- hh test on single fork: `npx hardhat test` or `pnpm hh:test`
-- hh deploy to multiple chains concurrent : eg. `npx hardhat deploy --network optimismGoerli` or `pnpm hh:deploy --network optimismGoerli`
-- two gh workflow jobs: hardhat (dispatch) and forge (push, dispatch)
+contract Script is Wallet('MNEMONIC|MNEMONIC_TESTNET') {
+  function run() external {
+    callFoo(); // origin = getAddr(5);
+    callBar(); // origin = getAddr('PRIVATE_KEY_TESTNET');
+  }
+  
+  function callFoo() external broadcastWithKey('PRIVATE_KEY_TESTNET');
+  function callBar() external broadcastWithMnemonic(5);
+}
+
+...
+
+import { HelperBase, TestLib } from './Util.t.sol';
+
+contract Test is HelperBase('MNEMONIC|MNEMONIC_TESTNET') {
+  function setUp() public fork('mainnet') {} // default to mainnet
+
+  function testFoo() public checkSetup { // mainnet
+    assertEq(users.user0.balance, 10 ether);
+  }
+
+  function testBar() public fork('optimism') withUsers(10, 11, 12) { // optimism
+    assertEq(users.user0.balance, 0 ether);
+  }
+
+  function testBaz() public withUsers(10, 11, 12) { // mainnet
+    (users, test) = create(TestLib.Params(mainnet().DAI, 1.1 ether, mainnet()));
+    assertEq(mainnet().DAI.balanceOf(users.user0), 1.1 ether);
+    assertEq(mainnet().DAI.balanceOf(users.user1), 1.1 ether);
+    assertEq(mainnet().DAI.balanceOf(users.user2), 1.1 ether);
+  }
+  
+  function callFoo() public prankAddr(address);
+  function callBar() public prankMnemonic(uint32);
+  function callBaz() public prankKey(string);
+}
+```
+
+- forge test: `forge test` | `pnpm f:test` | `./test.sh`
+- hh test: `npx hardhat test` or `pnpm hh:test`
+- hh deploy example, multiple chains concurrent: `npx hardhat deploy --network optimismGoerli` or `pnpm hh:deploy --network optimismGoerli`
+- gh workflows: forge (push, dispatch) & hardhat (dispatch).
 
 ## setup
 
