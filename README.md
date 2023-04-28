@@ -149,7 +149,7 @@ tests: 'ts/tests',
 
 ### unverified contract abi
 
-`npx hardhat whatsabi --address 0x --save true/false (saved in temp/{address}.json)
+`npx hardhat whatsabi --address 0x --save true/false` (saved in temp/{address}.json)
 
 ### diffing
 
