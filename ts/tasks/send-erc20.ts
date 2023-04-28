@@ -2,6 +2,13 @@ import { task } from 'hardhat/config.js';
 import { logger } from '../scripts/utils.ts';
 import { TASK_SEND_ERC20 } from './task-names.ts';
 
+const erc20hrabi = [
+  'function symbol() view returns (string symbol)',
+  'function decimals() view returns (uint8 decimals)',
+  'function transfer(address to,uint256 amount)',
+  'function balanceOf(address account) view returns (uint256 balance)',
+];
+
 task(TASK_SEND_ERC20, 'Send ERC20')
   .addParam('token', 'token')
   .addParam('to', 'to')
@@ -11,7 +18,11 @@ task(TASK_SEND_ERC20, 'Send ERC20')
     const { to, amount } = args;
     const { deployer } = await hre.ctx();
 
-    const Token = await hre.ethers.getContractAt('ERC20', args.token, deployer);
+    const Token = await hre.ethers.getContractAt(
+      erc20hrabi,
+      args.token,
+      deployer
+    );
     const symbol = await Token.symbol();
     const amountBig = hre.toBig(amount, await Token.decimals());
 

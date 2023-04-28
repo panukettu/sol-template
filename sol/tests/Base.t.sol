@@ -1,35 +1,21 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity >=0.8.19;
+import { HelperBase, TestLib } from './Util.t.sol';
 
-import { Test } from 'forge-std/Test.sol';
-import { Ghost } from '../contracts/Ghost.sol';
+contract BaseTest is HelperBase('MNEMONIC_TESTNET') {
+  using TestLib for TestLib.Params;
 
-contract Base is Test {
-  Ghost public deployMain;
-  Ghost public deployTest;
+  function setUp() public fork('mainnet') {}
 
-  // the identifiers of the forks
-  uint256 internal mainnet;
-  uint256 internal testnet;
-
-  function setUp() public {
-    mainnet = vm.createSelectFork(vm.rpcUrl('mainnet'));
-    testnet = vm.createSelectFork(vm.rpcUrl('goerli'));
-
-    vm.selectFork(mainnet);
-    deployMain = new Ghost();
-    vm.selectFork(testnet);
-    deployTest = new Ghost();
+  function testHelper() public checkSetup {
+    assertEq(users.user0.balance, 10 ether);
   }
 
-  /**
-   * @dev Execute on forks
-   */
-  function testBoo() public {
-    vm.selectFork(mainnet);
-    assertEq(deployMain.boo(), 'Boo!');
+  function testAnother() public withUsers(7, 8, 9) {
+    (users, test) = create(TestLib.Params(mainnet().DAI, 1.1 ether, mainnet()));
 
-    vm.selectFork(testnet);
-    assertEq(deployTest.boo(), 'Boo!');
+    assertEq(mainnet().DAI.balanceOf(users.user0), 1.1 ether);
+    assertEq(mainnet().DAI.balanceOf(users.user1), 1.1 ether);
+    assertEq(mainnet().DAI.balanceOf(users.user2), 1.1 ether);
   }
 }
