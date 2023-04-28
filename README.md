@@ -111,9 +111,9 @@ tests: 'ts/tests',
 
 ## foundry packages
 
-[Rari-Capital/solmate](https://github.com/Rari-Capital/solmate) - simple base contracts
+[Rari-Capital/solmate](https://github.com/Rari-Capital/solmate)
 
-[OpenZeppelin/openzeppelin-contracts](https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable) - not so simple base contracts
+[OpenZeppelin/openzeppelin-contracts](https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable)
 
 ## hardhat packages
 
