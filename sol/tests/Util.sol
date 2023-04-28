@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.19;
 
-import { Wallet } from '../scripts/Wallet.s.sol';
-import { TestLib, Deployments, IERC20, Test } from './libs/LibBase.t.sol';
+import { Wallet } from '../scripts/Util.s.sol';
+import { LibTest, Deployments, IERC20, Test } from './libs/LibTest.sol';
 
 abstract contract TestWallet is Wallet, Test {
   constructor(string memory _mnemonicId) Wallet(_mnemonicId) {}
@@ -31,7 +31,7 @@ abstract contract TestBase is Deployments, TestWallet {
     _;
   }
 
-  using TestLib for TestLib.Params;
+  using LibTest for LibTest.Params;
   address internal DAI_HOLDER_MAINNET = 0x60FaAe176336dAb62e284Fe19B885B095d29fB7F;
 
   constructor(string memory _mnemonicId) TestWallet(_mnemonicId) {}
@@ -43,22 +43,22 @@ abstract contract TestBase is Deployments, TestWallet {
     _;
   }
 
-  TestLib.Params internal test;
-  TestLib.Users internal users;
+  LibTest.Params internal test;
+  LibTest.Users internal users;
 
   modifier withUsers(
     uint32 a,
     uint32 b,
     uint32 c
   ) {
-    users = TestLib.Users(getAddr(a), getAddr(b), getAddr(c));
+    users = LibTest.Users(getAddr(a), getAddr(b), getAddr(c));
     _;
   }
 
   /* ----------------------------- Test the setup ----------------------------- */
 
   function check() internal withUsers(10, 11, 12) {
-    (users, test) = create(TestLib.Params(mainnet().DAI, 10000 ether, mainnet()));
+    (users, test) = create(LibTest.Params(mainnet().DAI, 10000 ether, mainnet()));
 
     assertEq(users.user0, getAddr(10), '!u0');
     assertEq(users.user1, getAddr(11), '!u1');
@@ -72,8 +72,8 @@ abstract contract TestBase is Deployments, TestWallet {
   /* ------------------------------- Create test ------------------------------ */
 
   function create(
-    TestLib.Params memory _test
-  ) public returns (TestLib.Users memory, TestLib.Params memory) {
+    LibTest.Params memory _test
+  ) public returns (LibTest.Users memory, LibTest.Params memory) {
     address[] memory _approvals = new address[](2);
     _approvals[0] = address(_test.c.UNIRV2);
     _approvals[1] = address(_test.c.INCH);
@@ -88,7 +88,7 @@ abstract contract TestBase is Deployments, TestWallet {
   }
 
   function createBalance(
-    TestLib.Params memory params,
+    LibTest.Params memory params,
     address from,
     address user
   ) internal prankAddr(from) {
@@ -99,7 +99,7 @@ abstract contract TestBase is Deployments, TestWallet {
   }
 
   function createApprovals(
-    TestLib.Params memory params,
+    LibTest.Params memory params,
     address[] memory addresses,
     address user
   ) internal prankAddr(user) {

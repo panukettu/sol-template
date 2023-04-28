@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import { Test } from 'forge-std/Test.sol';
+import { TestBase } from './Util.sol';
 import { Accept } from '../contracts/Accept.sol';
 
-contract AcceptTest is Test {
+contract AcceptTest is TestBase('MNEMONIC_TESTNET') {
   Accept public deployment;
 
   uint256 internal testnet;

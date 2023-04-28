@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.19;
-import { TestBase, TestLib } from './Util.t.sol';
+import { TestBase, LibTest } from './Util.sol';
 
 contract TestBaseTest is TestBase('MNEMONIC_TESTNET') {
-  using TestLib for TestLib.Params;
+  using LibTest for LibTest.Params;
 
   function setUp() public fork('mainnet') {}
 
@@ -16,7 +16,7 @@ contract TestBaseTest is TestBase('MNEMONIC_TESTNET') {
   }
 
   function testAnother() public withUsers(10, 11, 12) {
-    (users, test) = create(TestLib.Params(mainnet().DAI, 1.1 ether, mainnet()));
+    (users, test) = create(LibTest.Params(mainnet().DAI, 1.1 ether, mainnet()));
 
     assertEq(mainnet().DAI.balanceOf(users.user0), 1.1 ether);
     assertEq(mainnet().DAI.balanceOf(users.user1), 1.1 ether);

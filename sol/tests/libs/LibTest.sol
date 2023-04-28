@@ -1,16 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0;
 
+import { Test } from 'forge-std/Test.sol';
 import { IERC20 } from '../../contracts/vendor/IERC20.sol';
 import { IUniswapV2Pair } from '../../contracts/vendor/IUniswap.sol';
 import { UniswapV2Library } from '../../contracts/vendor/UniswapV2Library.sol';
 import { UniswapV2LiquidityMathLibrary } from '../../contracts/vendor/UniswapV2LiquidityMathLibrary.sol';
 import { Deployments, Contracts } from '../../scripts/Util.s.sol';
 import { FixedPoint } from '../../contracts/lib/FixedPoint.sol';
-import { Test } from 'forge-std/Test.sol';
 
-library TestLib {
-  using TestLib for TestLib.Params;
+library LibTest {
+  using LibTest for LibTest.Params;
   using FixedPoint for FixedPoint.Unsigned;
 
   struct Params {

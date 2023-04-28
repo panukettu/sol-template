@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import { Wallet, Test } from './Util.t.sol';
+import { Wallet, Test } from './Util.sol';
 
 string constant testnet = 'MNEMONIC_TESTNET';
 string constant mainnet = 'MNEMONIC';
