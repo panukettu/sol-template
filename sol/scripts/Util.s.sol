@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.8.0;
+
 import { IERC20 } from '../contracts/vendor/IERC20.sol';
 import { IWETH } from '../contracts/vendor/IWETH.sol';
 import { INCHV5 } from '../contracts/vendor/1NCH.sol';
@@ -6,6 +9,8 @@ import { IParaswap } from '../contracts/vendor/IParaswap.sol';
 import { ISwapRouter } from '../contracts/vendor/IUniswapV3Router.sol';
 import { IUniswapV3Factory } from '../contracts/vendor/IUniswapV3Factory.sol';
 import { IUniversalRouter } from '../contracts/vendor/IUniversalRouter.sol';
+import { IPolygonZkEvmBridge, PolygonZkEvm, Arbitrum, Optimism, IArbitrumBridge, IOPBridge } from '../contracts/interfaces/IBridges.sol';
+import { Wallet } from './Wallet.s.sol';
 
 struct Contracts {
   IWETH NATIVEW;
@@ -20,6 +25,10 @@ struct Contracts {
   IUniversalRouter UNIVERSAL;
   IParaswap PARASWAP;
   INCHV5 INCH;
+  IPolygonZkEvmBridge zkEvmBridge;
+  IArbitrumBridge arbBridge;
+  IArbitrumBridge arbBridgeNova;
+  IOPBridge opBridge;
 }
 
 abstract contract Deployments {
@@ -37,7 +46,11 @@ abstract contract Deployments {
         UNIFV3: IUniswapV3Factory(0x1F98431c8aD98523631AE4a59f267346ea31F984),
         UNIVERSAL: IUniversalRouter(0xEf1c6E67703c7BD7107eed8303Fbe6EC2554BF6B),
         INCH: INCHV5(0x1111111254EEB25477B68fb85Ed929f73A960582),
-        PARASWAP: IParaswap(0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57)
+        PARASWAP: IParaswap(0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57),
+        zkEvmBridge: IPolygonZkEvmBridge(PolygonZkEvm.BRIDGE_MAINNET),
+        opBridge: IOPBridge(Optimism.BRIDGE_MAINNET),
+        arbBridge: IArbitrumBridge(Arbitrum.BRIDGE_MAINNET),
+        arbBridgeNova: IArbitrumBridge(Arbitrum.BRIDGE_MAINNET_NOVA)
       });
   }
 
@@ -55,7 +68,11 @@ abstract contract Deployments {
         UNIFV3: IUniswapV3Factory(0x1F98431c8aD98523631AE4a59f267346ea31F984),
         UNIVERSAL: IUniversalRouter(0x4C60051384bd2d3C01bfc845Cf5F4b44bcbE9de5),
         INCH: INCHV5(0x1111111254EEB25477B68fb85Ed929f73A960582),
-        PARASWAP: IParaswap(0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57)
+        PARASWAP: IParaswap(0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57),
+        zkEvmBridge: IPolygonZkEvmBridge(address(0)),
+        opBridge: IOPBridge(address(0)),
+        arbBridge: IArbitrumBridge(address(0)),
+        arbBridgeNova: IArbitrumBridge(address(0))
       });
   }
 
@@ -73,7 +90,11 @@ abstract contract Deployments {
         UNIFV3: IUniswapV3Factory(address(0)),
         UNIVERSAL: IUniversalRouter(0x5Dc88340E1c5c6366864Ee415d6034cadd1A9897),
         INCH: INCHV5(0x1111111254EEB25477B68fb85Ed929f73A960582),
-        PARASWAP: IParaswap(0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57)
+        PARASWAP: IParaswap(0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57),
+        zkEvmBridge: IPolygonZkEvmBridge(address(0)),
+        opBridge: IOPBridge(address(0)),
+        arbBridge: IArbitrumBridge(address(0)),
+        arbBridgeNova: IArbitrumBridge(address(0))
       });
   }
 
@@ -91,7 +112,11 @@ abstract contract Deployments {
         UNIFV3: IUniswapV3Factory(0x1F98431c8aD98523631AE4a59f267346ea31F984),
         UNIVERSAL: IUniversalRouter(0xb555edF5dcF85f42cEeF1f3630a52A108E55A654),
         INCH: INCHV5(0x1111111254EEB25477B68fb85Ed929f73A960582),
-        PARASWAP: IParaswap(0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57)
+        PARASWAP: IParaswap(0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57),
+        zkEvmBridge: IPolygonZkEvmBridge(address(0)),
+        opBridge: IOPBridge(address(0)),
+        arbBridge: IArbitrumBridge(address(0)),
+        arbBridgeNova: IArbitrumBridge(address(0))
       });
   }
 
@@ -109,7 +134,11 @@ abstract contract Deployments {
         UNIFV3: IUniswapV3Factory(0x1F98431c8aD98523631AE4a59f267346ea31F984),
         UNIVERSAL: IUniversalRouter(0x4C60051384bd2d3C01bfc845Cf5F4b44bcbE9de5),
         INCH: INCHV5(0x1111111254EEB25477B68fb85Ed929f73A960582),
-        PARASWAP: IParaswap(0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57)
+        PARASWAP: IParaswap(0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57),
+        zkEvmBridge: IPolygonZkEvmBridge(address(0)),
+        opBridge: IOPBridge(address(0)),
+        arbBridge: IArbitrumBridge(address(0)),
+        arbBridgeNova: IArbitrumBridge(address(0))
       });
   }
 
@@ -127,7 +156,54 @@ abstract contract Deployments {
         UNIFV3: IUniswapV3Factory(0x1F98431c8aD98523631AE4a59f267346ea31F984),
         UNIVERSAL: IUniversalRouter(0x4648a43B2C14Da09FdF82B161150d3F634f40491),
         INCH: INCHV5(address(0)),
-        PARASWAP: IParaswap(0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57)
+        PARASWAP: IParaswap(0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57),
+        zkEvmBridge: IPolygonZkEvmBridge(PolygonZkEvm.BRIDGE_GOERLI),
+        opBridge: IOPBridge(Optimism.BRIDGE_GOERLI),
+        arbBridge: IArbitrumBridge(Arbitrum.BRIDGE_GOERLI),
+        arbBridgeNova: IArbitrumBridge(address(0))
       });
+  }
+}
+
+abstract contract ScriptBase is Deployments, Wallet {
+  constructor(string memory _mnemonicId) Wallet(_mnemonicId) {}
+
+  uint256 internal constant MAX_256 = type(uint256).max;
+}
+
+using Bridges for Contracts global;
+
+library Bridges {
+  function depositOptimism(Contracts memory self, address to, uint256 value) internal {
+    require(address(self.opBridge) != address(0), 'op-bridge-addr-0');
+    require(to != address(0), 'op-bridge-to-0');
+    require(value > 0, 'op-bridge-amount-0');
+    self.opBridge.depositETHTo{ value: value }(to, 200000, '');
+  }
+
+  function depositArbitrum(Contracts memory self, uint256 value) internal {
+    require(address(self.arbBridge) != address(0), 'arb-bridge-addr-0');
+    require(value > 0, 'arb-bridge-amount-0');
+    self.arbBridge.depositEth{ value: value }();
+  }
+
+  function depositZkEvm(Contracts memory self, address to, uint256 value) internal {
+    require(address(self.zkEvmBridge) != address(0), 'zkevm-bridge-addr-0');
+    require(to != address(0), 'zkevm-bridge-to-0');
+    require(value > 0, 'zkevm-bridge-amount-0');
+    self.zkEvmBridge.bridgeAsset{ value: value }(
+      PolygonZkEvm.ZKEVM_ID,
+      to,
+      value,
+      address(0),
+      true,
+      ''
+    );
+  }
+
+  function multibridge(Contracts memory self, uint256 value) internal {
+    self.depositOptimism(msg.sender, value);
+    self.depositArbitrum(value);
+    self.depositZkEvm(msg.sender, value);
   }
 }

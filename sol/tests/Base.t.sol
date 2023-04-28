@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.19;
-import { HelperBase, TestLib } from './Util.t.sol';
+import { TestBase, TestLib } from './Util.t.sol';
 
-contract BaseTest is HelperBase('MNEMONIC_TESTNET') {
+contract TestBaseTest is TestBase('MNEMONIC_TESTNET') {
   using TestLib for TestLib.Params;
 
   function setUp() public fork('mainnet') {}

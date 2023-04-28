@@ -1,9 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.19;
 
-import { Test } from 'forge-std/Test.sol';
 import { Wallet } from '../scripts/Wallet.s.sol';
-import { TestLib, Deployments, IERC20 } from './libs/LibBase.t.sol';
+import { TestLib, Deployments, IERC20, Test } from './libs/LibBase.t.sol';
 
 abstract contract TestWallet is Wallet, Test {
   constructor(string memory _mnemonicId) Wallet(_mnemonicId) {}
@@ -13,6 +12,7 @@ abstract contract TestWallet is Wallet, Test {
     _;
     vm.stopPrank();
   }
+
   modifier prankAddr(address addr) {
     vm.startPrank(addr, addr);
     _;
@@ -25,7 +25,7 @@ abstract contract TestWallet is Wallet, Test {
   }
 }
 
-abstract contract HelperBase is Deployments, TestWallet {
+abstract contract TestBase is Deployments, TestWallet {
   modifier fork(string memory f) {
     vm.createSelectFork(f);
     _;

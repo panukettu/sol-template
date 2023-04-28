@@ -7,8 +7,12 @@ import { UniswapV2Library } from '../../contracts/vendor/UniswapV2Library.sol';
 import { UniswapV2LiquidityMathLibrary } from '../../contracts/vendor/UniswapV2LiquidityMathLibrary.sol';
 import { Deployments, Contracts } from '../../scripts/Util.s.sol';
 import { FixedPoint } from '../../contracts/lib/FixedPoint.sol';
+import { Test } from 'forge-std/Test.sol';
 
 library TestLib {
+  using TestLib for TestLib.Params;
+  using FixedPoint for FixedPoint.Unsigned;
+
   struct Params {
     IERC20 asset;
     uint256 assetAmount;
@@ -19,8 +23,6 @@ library TestLib {
     address user1;
     address user2;
   }
-
-  using FixedPoint for FixedPoint.Unsigned;
 
   function assetPriceV2(Params storage self, address pairToken) internal view returns (uint256) {
     IUniswapV2Pair pair = IUniswapV2Pair(self.c.UNIFV2.getPair(address(self.asset), pairToken));
