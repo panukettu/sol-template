@@ -11,24 +11,29 @@ Use [blackbox](https://github.com/StackExchange/blackbox#installation-instructio
 Boilerplate for RPC, Etherscan, LayerZero, AMMs.
 
 Forge helpers:
-```solidity
-import { Wallet } from './Wallet.s.sol';
 
-contract Script is Wallet('MNEMONIC|MNEMONIC_TESTNET') {
+```solidity
+import { ScripBase } from './Util.s.sol';
+
+contract Script is ScriptBase('MNEMONIC|MNEMONIC_TESTNET') {
   function run() external {
-    callFoo(); // origin = getAddr(5);
-    callBar(); // origin = getAddr('PRIVATE_KEY_TESTNET');
+    callFoo(); // origin = getAddr('PRIVATE_KEY_TESTNET')
+    callBar(); // origin = getAddr(5);
   }
-  
-  function callFoo() external broadcastWithKey('PRIVATE_KEY_TESTNET');
-  function callBar() external broadcastWithMnemonic(5);
+
+  function callFoo() external broadcastWithKey('PRIVATE_KEY_TESTNET') {
+    goerli().depositArbitrum(1 ether);
+  }
+  function callBar() external broadcastWithMnemonic(5) {
+    goerli().depositOptimism(getAddr(5), 1 ether);
+  }
 }
 
 ...
 
-import { HelperBase, TestLib } from './Util.t.sol';
+import { TestBase } from './Util.t.sol';
 
-contract Test is HelperBase('MNEMONIC|MNEMONIC_TESTNET') {
+contract Test is TestBase('MNEMONIC|MNEMONIC_TESTNET') {
   function setUp() public fork('mainnet') {} // default to mainnet
 
   function testFoo() public checkSetup { // mainnet
@@ -45,7 +50,7 @@ contract Test is HelperBase('MNEMONIC|MNEMONIC_TESTNET') {
     assertEq(mainnet().DAI.balanceOf(users.user1), 1.1 ether);
     assertEq(mainnet().DAI.balanceOf(users.user2), 1.1 ether);
   }
-  
+
   function callFoo() public prankAddr(address);
   function callBar() public prankMnemonic(uint32);
   function callBaz() public prankKey(string);
