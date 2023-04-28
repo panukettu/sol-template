@@ -11,7 +11,11 @@ contract BaseTest is HelperBase('MNEMONIC_TESTNET') {
     assertEq(users.user0.balance, 10 ether);
   }
 
-  function testAnother() public withUsers(7, 8, 9) {
+  function testFoo() public fork('optimism') withUsers(10, 11, 12) {
+    assertEq(users.user0.balance, 0 ether);
+  }
+
+  function testAnother() public withUsers(10, 11, 12) {
     (users, test) = create(TestLib.Params(mainnet().DAI, 1.1 ether, mainnet()));
 
     assertEq(mainnet().DAI.balanceOf(users.user0), 1.1 ether);
