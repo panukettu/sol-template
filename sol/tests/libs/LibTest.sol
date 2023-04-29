@@ -53,13 +53,43 @@ library LibTest {
     return UniswapV2Library.sortTokens(address(self.asset), pairToken);
   }
 
+  function quoteA(
+    Params storage self,
+    address pairToken,
+    address quoteToken,
+    uint256 amount
+  ) internal view returns (uint256) {
+    IUniswapV2Pair pair = IUniswapV2Pair(self.c.UNIFV2.getPair(address(self.asset), pairToken));
+    (uint256 reserveA, uint256 reserveB, ) = pair.getReserves();
+    (address tokenA, address tokenB) = self.sortTokensV2(pairToken);
+    return
+      quoteToken != tokenA
+        ? UniswapV2Library.quote(amount, reserveA, reserveB)
+        : UniswapV2Library.quote(amount, reserveB, reserveA);
+  }
+
+  function quoteB(
+    Params storage self,
+    address pairToken,
+    address quoteToken,
+    uint256 amount
+  ) internal view returns (uint256) {
+    IUniswapV2Pair pair = IUniswapV2Pair(self.c.UNIFV2.getPair(address(self.asset), pairToken));
+    (uint256 reserveA, uint256 reserveB, ) = pair.getReserves();
+    (address tokenA, address tokenB) = self.sortTokensV2(pairToken);
+    return
+      quoteToken == tokenA
+        ? UniswapV2Library.quote(amount, reserveA, reserveB)
+        : UniswapV2Library.quote(amount, reserveB, reserveA);
+  }
+
   function getLPValueV2(
     Params storage self,
     address user,
     address pairToken
   ) internal view returns (uint256 amountAsset, uint256 amountOther) {
     IUniswapV2Pair pair = IUniswapV2Pair(self.c.UNIFV2.getPair(address(self.asset), pairToken));
-    (address tokenA, address tokenB) = sortTokensV2(self, pairToken);
+    (address tokenA, address tokenB) = self.sortTokensV2(pairToken);
 
     (uint256 amountA, uint256 amountB) = UniswapV2LiquidityMathLibrary.getLiquidityValue(
       address(self.c.UNIFV2),
@@ -79,19 +109,13 @@ library LibTest {
     address pairToken,
     uint256 pct
   ) internal {
-    IUniswapV2Pair pair = IUniswapV2Pair(self.c.UNIFV2.getPair(address(self.asset), pairToken));
-    (uint256 reserveA, uint256 reserveB, ) = pair.getReserves();
-    (address tokenA, address tokenB) = sortTokensV2(self, pairToken);
+    (address tokenA, address tokenB) = self.sortTokensV2(pairToken);
 
     uint256 amountAsset = (self.asset.balanceOf(user) * pct) / 100;
-    uint256 amountOther;
-
     bool isAssetA = tokenA == address(self.asset);
-    if (isAssetA) {
-      amountOther = UniswapV2Library.quote(amountAsset, reserveA, reserveB);
-    } else {
-      amountOther = UniswapV2Library.quote(amountAsset, reserveB, reserveA);
-    }
+    uint256 amountOther = isAssetA
+      ? self.quoteB(pairToken, pairToken, amountAsset)
+      : self.quoteA(pairToken, pairToken, amountAsset);
 
     self.c.UNIRV2.addLiquidity(
       tokenA,
