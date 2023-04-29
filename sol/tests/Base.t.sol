@@ -16,7 +16,7 @@ contract TestBaseTest is TestBase('MNEMONIC_TESTNET') {
   }
 
   function testAnother() public withUsers(10, 11, 12) {
-    (users, test) = create(LibTest.Params(mainnet().DAI, 1.1 ether, mainnet()));
+    (users, test) = createUsers(LibTest.Params(mainnet().DAI, 1.1 ether, mainnet()));
 
     assertEq(mainnet().DAI.balanceOf(users.user0), 1.1 ether);
     assertEq(mainnet().DAI.balanceOf(users.user1), 1.1 ether);

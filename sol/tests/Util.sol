@@ -58,7 +58,7 @@ abstract contract TestBase is Deployments, TestWallet {
   /* ----------------------------- Test the setup ----------------------------- */
 
   function check() internal withUsers(10, 11, 12) {
-    (users, test) = create(LibTest.Params(mainnet().DAI, 10000 ether, mainnet()));
+    (users, test) = createUsers(LibTest.Params(mainnet().DAI, 10000 ether, mainnet()));
 
     assertEq(users.user0, getAddr(10), '!u0');
     assertEq(users.user1, getAddr(11), '!u1');
@@ -67,11 +67,29 @@ abstract contract TestBase is Deployments, TestWallet {
     assertEq(users.user0.balance, 10 ether, '!u0eth');
     assertEq(users.user1.balance, 10 ether, '!u1eth');
     assertEq(users.user2.balance, 10 ether, '!u2eth');
+
+    (address user0, LibTest.Params memory test0) = createUser(getAddr(20), test);
+    assertEq(user0, getAddr(20), '!u0');
+    assertEq(test0.c.DAI.balanceOf(user0), 10000 ether, '!u0dai');
+    assertEq(user0.balance, 10 ether, '!u0deth');
   }
 
   /* ------------------------------- Create test ------------------------------ */
 
-  function create(
+  function createUser(
+    address _user,
+    LibTest.Params memory _test
+  ) public returns (address user, LibTest.Params memory) {
+    address[] memory _approvals = new address[](2);
+    _approvals[0] = address(_test.c.UNIRV2);
+    _approvals[1] = address(_test.c.INCH);
+
+    createBalance(_test, DAI_HOLDER_MAINNET, _user);
+    createApprovals(_test, _approvals, _user);
+    return (_user, _test);
+  }
+
+  function createUsers(
     LibTest.Params memory _test
   ) public returns (LibTest.Users memory, LibTest.Params memory) {
     address[] memory _approvals = new address[](2);
