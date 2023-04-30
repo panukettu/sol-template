@@ -33,6 +33,7 @@ abstract contract TestBase is Deployments, TestWallet {
 
   using LibTest for LibTest.Params;
   address internal DAI_HOLDER_MAINNET = 0x60FaAe176336dAb62e284Fe19B885B095d29fB7F;
+  address internal ETH_HOLDER_BSC = 0x2170Ed0880ac9A755fd29B2688956BD959F933F8;
 
   constructor(string memory _mnemonicId) TestWallet(_mnemonicId) {}
 
@@ -58,7 +59,10 @@ abstract contract TestBase is Deployments, TestWallet {
   /* ----------------------------- Test the setup ----------------------------- */
 
   function check() internal withUsers(10, 11, 12) {
-    (users, test) = createUsers(LibTest.Params(mainnet().DAI, 10000 ether, mainnet()));
+    (users, test) = createUsers(
+      DAI_HOLDER_MAINNET,
+      LibTest.Params(mainnet().DAI, 10000 ether, mainnet())
+    );
 
     assertEq(users.user0, getAddr(10), '!u0');
     assertEq(users.user1, getAddr(11), '!u1');
@@ -68,7 +72,11 @@ abstract contract TestBase is Deployments, TestWallet {
     assertEq(users.user1.balance, 10 ether, '!u1eth');
     assertEq(users.user2.balance, 10 ether, '!u2eth');
 
-    (address user0, LibTest.Params memory test0) = createUser(getAddr(20), test);
+    (address user0, LibTest.Params memory test0) = createUser(
+      getAddr(20),
+      DAI_HOLDER_MAINNET,
+      test
+    );
     assertEq(user0, getAddr(20), '!u0');
     assertEq(test0.c.DAI.balanceOf(user0), 10000 ether, '!u0dai');
     assertEq(user0.balance, 10 ether, '!u0deth');
@@ -78,27 +86,29 @@ abstract contract TestBase is Deployments, TestWallet {
 
   function createUser(
     address _user,
+    address assetsFrom,
     LibTest.Params memory _test
   ) public returns (address user, LibTest.Params memory) {
     address[] memory _approvals = new address[](2);
     _approvals[0] = address(_test.c.UNIRV2);
     _approvals[1] = address(_test.c.INCH);
 
-    createBalance(_test, DAI_HOLDER_MAINNET, _user);
+    createBalance(_test, assetsFrom, _user);
     createApprovals(_test, _approvals, _user);
     return (_user, _test);
   }
 
   function createUsers(
+    address assetsFrom,
     LibTest.Params memory _test
   ) public returns (LibTest.Users memory, LibTest.Params memory) {
     address[] memory _approvals = new address[](2);
     _approvals[0] = address(_test.c.UNIRV2);
     _approvals[1] = address(_test.c.INCH);
 
-    createBalance(_test, DAI_HOLDER_MAINNET, users.user0);
-    createBalance(_test, DAI_HOLDER_MAINNET, users.user1);
-    createBalance(_test, DAI_HOLDER_MAINNET, users.user2);
+    createBalance(_test, assetsFrom, users.user0);
+    createBalance(_test, assetsFrom, users.user1);
+    createBalance(_test, assetsFrom, users.user2);
     createApprovals(_test, _approvals, users.user0);
     createApprovals(_test, _approvals, users.user1);
     createApprovals(_test, _approvals, users.user2);
