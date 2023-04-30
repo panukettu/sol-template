@@ -31,9 +31,6 @@ contract BridgeAll is ScriptBase('MNEMONIC_TESTNET') {
   function run() external broadcastWithMnemonic(0) {
     address to = getAddr('PRIVATE_KEY');
     uint256 amount = 0.05 ether;
-    goerli().depositZkEvm(to, amount);
-    goerli().depositArbitrum(amount);
-    goerli().depositOptimism(to, amount);
     goerli().multibridge(amount);
   }
 }
