@@ -33,7 +33,7 @@ abstract contract TestBase is Deployments, TestWallet {
 
   using LibTest for LibTest.Params;
   address internal DAI_HOLDER_MAINNET = 0x60FaAe176336dAb62e284Fe19B885B095d29fB7F;
-  address internal ETH_HOLDER_BSC = 0x2170Ed0880ac9A755fd29B2688956BD959F933F8;
+  address internal ETH_HOLDER_BSC = 0x8894E0a0c962CB723c1976a4421c95949bE2D4E3;
 
   constructor(string memory _mnemonicId) TestWallet(_mnemonicId) {}
 
